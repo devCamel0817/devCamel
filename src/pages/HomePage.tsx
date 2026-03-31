@@ -308,7 +308,7 @@ function AchievementCounters() {
       {/* 배경 그라데이션 */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent pointer-events-none" />
 
-      <div className="container-narrow relative z-10">
+      <div className="container-narrow relative z-10 px-4">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
