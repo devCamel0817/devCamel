@@ -118,6 +118,7 @@ export default function ProjectsPage() {
               <input
                 type="text"
                 placeholder="프로젝트 검색..."
+                aria-label="프로젝트 검색"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 className="w-full pl-10 pr-4 py-3 rounded-xl bg-surface-800 border border-glass-border text-white placeholder-surface-500 focus:outline-none focus:border-primary transition-colors"

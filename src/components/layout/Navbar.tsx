@@ -69,6 +69,7 @@ export default function Navbar() {
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
             className="md:hidden p-2 text-surface-400 hover:text-white"
+            aria-label={mobileOpen ? '메뉴 닫기' : '메뉴 열기'}
           >
             {mobileOpen ? <HiX size={24} /> : <HiMenu size={24} />}
           </button>
