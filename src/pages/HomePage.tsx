@@ -1,10 +1,20 @@
-import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { FaGithub, FaArrowRight } from 'react-icons/fa';
+import { FaGithub, FaArrowRight, FaFileDownload } from 'react-icons/fa';
 import { HiCode, HiDatabase, HiServer } from 'react-icons/hi';
 import { PageTransition, GlassCard } from '../components/ui';
 import AboutSection from './AboutSection';
 import ContactSection from './ContactSection';
+
+const typingWords = [
+  'Build · Ship · Repeat 🚀',
+  'Java & Spring Boot',
+  '레거시를 현대화하는 개발자',
+  'Clean Code Enthusiast',
+  '복잡한 문제를 단순하게',
+  'Never Stop Learning 🐪',
+];
 
 const floatingOrbs = [
   { color: 'from-primary to-primary-light', size: 'w-72 h-72', pos: '-top-20 -left-20', delay: 0 },
@@ -37,6 +47,32 @@ const highlights = [
 ];
 
 export default function HomePage() {
+  const [wordIndex, setWordIndex] = useState(0);
+  const [text, setText] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const current = typingWords[wordIndex];
+    const timeout = setTimeout(
+      () => {
+        if (!isDeleting) {
+          setText(current.slice(0, text.length + 1));
+          if (text.length + 1 === current.length) {
+            setTimeout(() => setIsDeleting(true), 1500);
+          }
+        } else {
+          setText(current.slice(0, text.length - 1));
+          if (text.length - 1 === 0) {
+            setIsDeleting(false);
+            setWordIndex((prev) => (prev + 1) % typingWords.length);
+          }
+        }
+      },
+      isDeleting ? 40 : 80,
+    );
+    return () => clearTimeout(timeout);
+  }, [text, isDeleting, wordIndex]);
+
   return (
     <PageTransition>
       {/* ========== HERO ========== */}
@@ -78,6 +114,27 @@ export default function HomePage() {
               <span className="text-gradient">느려도 끝까지 가는 개발자</span>
             </h1>
 
+            {/* Typing animation */}
+            <div className="h-10 flex items-center justify-center mb-6">
+              <span className="text-xl sm:text-2xl text-accent-light font-mono">
+                {'> '}
+                <AnimatePresence mode="wait">
+                  <motion.span
+                    key={wordIndex + text}
+                    initial={{ opacity: 0.8 }}
+                    animate={{ opacity: 1 }}
+                  >
+                    {text}
+                  </motion.span>
+                </AnimatePresence>
+                <motion.span
+                  animate={{ opacity: [1, 0] }}
+                  transition={{ duration: 0.6, repeat: Infinity, repeatType: 'reverse' }}
+                  className="inline-block w-0.5 h-6 bg-accent-light ml-0.5 align-middle"
+                />
+              </span>
+            </div>
+
             <p className="text-lg sm:text-xl text-surface-400 max-w-2xl mx-auto mb-10 leading-relaxed">
               Java · Spring Boot · Vue.js 기반 풀스택 개발자.
               <br className="hidden sm:block" />
@@ -95,6 +152,19 @@ export default function HomePage() {
                   <FaArrowRight />
                 </motion.button>
               </Link>
+              <a
+                href="/resume.pdf"
+                download="정규진_이력서_2026.pdf"
+              >
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="px-8 py-4 rounded-xl bg-accent/20 border border-accent/30 text-accent-light font-semibold text-base flex items-center gap-2 hover:bg-accent/30 transition-colors"
+                >
+                  <FaFileDownload />
+                  이력서 다운로드
+                </motion.button>
+              </a>
               <a
                 href="https://github.com/devCamel0817"
                 target="_blank"
@@ -116,7 +186,7 @@ export default function HomePage() {
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20"
         >
           <div className="w-6 h-10 rounded-full border-2 border-surface-500 flex justify-center pt-2">
             <div className="w-1.5 h-3 rounded-full bg-surface-500" />
