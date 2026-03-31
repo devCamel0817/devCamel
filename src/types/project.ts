@@ -9,15 +9,6 @@ export interface Project {
   createdAt: string;
 }
 
-export interface ProjectCreateRequest {
-  title: string;
-  description: string;
-  imageUrl: string;
-  tags: string[];
-  githubUrl?: string;
-  liveUrl?: string;
-}
-
 export interface PageResponse<T> {
   content: T[];
   totalPages: number;
