@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FaEnvelope, FaGithub } from 'react-icons/fa';
+import { FaEnvelope, FaGithub, FaPhone } from 'react-icons/fa';
 import { PageTransition, GlassCard, Button, Input } from '../components/ui';
 import toast from 'react-hot-toast';
 import emailjs from '@emailjs/browser';
@@ -120,6 +120,19 @@ export default function ContactSection() {
               <GlassCard hover={false}>
                 <h3 className="text-lg font-semibold text-white mb-4">연락처</h3>
                 <div className="space-y-4">
+                  <a
+                    href="tel:010-9094-1426"
+                    className="flex items-center gap-3 text-surface-400 hover:text-white transition-colors"
+                  >
+                    <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center">
+                      <FaPhone className="text-accent" />
+                    </div>
+                    <div>
+                      <div className="text-sm font-medium text-white">Phone</div>
+                      <div className="text-xs text-surface-500">010-9094-1426</div>
+                    </div>
+                  </a>
+
                   <a
                     href="mailto:devCamel0817@gmail.com"
                     className="flex items-center gap-3 text-surface-400 hover:text-white transition-colors"
