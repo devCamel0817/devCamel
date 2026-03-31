@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { FaGithub, FaArrowRight, FaFileDownload } from 'react-icons/fa';
 import { HiCode, HiDatabase, HiServer } from 'react-icons/hi';
@@ -45,6 +45,37 @@ const highlights = [
     bg: 'bg-secondary/10',
   },
 ];
+
+const achievements = [
+  { label: '배치 성능 향상', value: 50, suffix: '%', sub: '3h → 1.5h', color: 'text-accent' },
+  { label: '생산성 향상', value: 20, suffix: '%', sub: '공통 모듈 구축', color: 'text-primary' },
+  { label: '실무 프로젝트', value: 4, suffix: '개', sub: '결제·물류·의료·교육', color: 'text-secondary' },
+  { label: '실무 경력', value: 3.2, suffix: '년', sub: 'Full-Stack Developer', color: 'text-accent-light' },
+];
+
+function useCountUp(target: number, inView: boolean, duration = 2000) {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    if (!inView) { setCount(0); return; }
+    const isDecimal = target % 1 !== 0;
+    const steps = 60;
+    const increment = target / steps;
+    let current = 0;
+    let step = 0;
+    const interval = setInterval(() => {
+      step++;
+      current += increment;
+      if (step >= steps) {
+        setCount(target);
+        clearInterval(interval);
+      } else {
+        setCount(isDecimal ? Math.round(current * 10) / 10 : Math.round(current));
+      }
+    }, duration / steps);
+    return () => clearInterval(interval);
+  }, [target, inView, duration]);
+  return count;
+}
 
 export default function HomePage() {
   const [wordIndex, setWordIndex] = useState(0);
@@ -141,12 +172,12 @@ export default function HomePage() {
               결제/물류 도메인 경험, 대용량 데이터 최적화, 레거시 시스템 현대화.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-20">
               <Link to="/projects">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="px-8 py-4 rounded-xl bg-gradient-to-r from-primary to-secondary text-white font-semibold text-base flex items-center gap-2 shadow-lg shadow-primary/25"
+                  className="w-48 py-3.5 rounded-xl bg-gradient-to-r from-primary to-secondary text-white font-semibold text-sm flex items-center justify-center gap-2 shadow-lg shadow-primary/25"
                 >
                   프로젝트 둘러보기
                   <FaArrowRight />
@@ -159,7 +190,7 @@ export default function HomePage() {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="px-8 py-4 rounded-xl bg-accent/20 border border-accent/30 text-accent-light font-semibold text-base flex items-center gap-2 hover:bg-accent/30 transition-colors"
+                  className="w-48 py-3.5 rounded-xl bg-accent/20 border border-accent/30 text-accent-light font-semibold text-sm flex items-center justify-center gap-2 hover:bg-accent/30 transition-colors"
                 >
                   <FaFileDownload />
                   이력서 다운로드
@@ -173,7 +204,7 @@ export default function HomePage() {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="px-8 py-4 rounded-xl bg-surface-800 border border-glass-border text-white font-semibold text-base flex items-center gap-2 hover:bg-surface-700 transition-colors"
+                  className="w-48 py-3.5 rounded-xl bg-surface-800 border border-glass-border text-white font-semibold text-sm flex items-center justify-center gap-2 hover:bg-surface-700 transition-colors"
                 >
                   <FaGithub />
                   GitHub
@@ -233,6 +264,9 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ========== ACHIEVEMENT COUNTERS ========== */}
+      <AchievementCounters />
+
       {/* ========== TECH STACK BANNER ========== */}
       <section className="py-16 border-y border-glass-border overflow-hidden">
         <motion.div
@@ -262,5 +296,60 @@ export default function HomePage() {
       {/* ========== CONTACT (inline) ========== */}
       <ContactSection />
     </PageTransition>
+  );
+}
+
+function AchievementCounters() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { amount: 0.4 });
+
+  return (
+    <section ref={ref} className="py-20 relative overflow-hidden">
+      {/* 배경 그라데이션 */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent pointer-events-none" />
+
+      <div className="container-narrow relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false }}
+          className="text-center mb-14"
+        >
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+            숫자로 보는 <span className="text-gradient">성과</span>
+          </h2>
+          <p className="text-surface-400 max-w-xl mx-auto">
+            실무에서 만들어낸 결과들입니다.
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          {achievements.map((a, i) => (
+            <AchievementCard key={a.label} item={a} index={i} inView={inView} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function AchievementCard({ item, index, inView }: { item: typeof achievements[0]; index: number; inView: boolean }) {
+  const count = useCountUp(item.value, inView);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.8 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={{ once: false }}
+      transition={{ delay: index * 0.12 }}
+    >
+      <GlassCard className="text-center py-8">
+        <div className={`text-4xl sm:text-5xl font-bold ${item.color} mb-2 tabular-nums`}>
+          {count}{item.suffix}
+        </div>
+        <div className="text-sm font-medium text-white mb-1">{item.label}</div>
+        <div className="text-xs text-surface-500">{item.sub}</div>
+      </GlassCard>
+    </motion.div>
   );
 }
