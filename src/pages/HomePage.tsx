@@ -141,7 +141,7 @@ export default function HomePage() {
               결제/물류 도메인 경험, 대용량 데이터 최적화, 레거시 시스템 현대화.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20">
               <Link to="/projects">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
