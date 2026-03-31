@@ -1,0 +1,108 @@
+@import "tailwindcss";
+
+@theme {
+  /* Camel / Desert Theme */
+  --color-primary: #c4956a;
+  --color-primary-light: #d4a574;
+  --color-primary-dark: #b08050;
+  --color-secondary: #d4715e;
+  --color-secondary-light: #e08a78;
+  --color-accent: #2dd4bf;
+  --color-accent-light: #5eead4;
+  --color-success: #22c55e;
+  --color-warning: #eab308;
+  --color-danger: #ef4444;
+
+  --color-surface-900: #1a1410;
+  --color-surface-800: #241e18;
+  --color-surface-700: #2e2620;
+  --color-surface-600: #3a312a;
+  --color-surface-500: #5c4f44;
+  --color-surface-400: #8a7a6c;
+
+  --color-glass: rgba(255, 245, 235, 0.04);
+  --color-glass-border: rgba(196, 149, 106, 0.15);
+  --color-glass-hover: rgba(196, 149, 106, 0.1);
+
+  --font-sans: 'Inter', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-glow: glow 2s ease-in-out infinite alternate;
+  --animate-gradient: gradient 8s ease infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+@keyframes glow {
+  from { box-shadow: 0 0 20px rgba(196, 149, 106, 0.3); }
+  to { box-shadow: 0 0 40px rgba(196, 149, 106, 0.6); }
+}
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@layer base {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-surface-500) transparent;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-surface-900 text-white font-sans antialiased;
+    margin: 0;
+    overflow-x: hidden;
+  }
+  ::selection {
+    @apply bg-primary/40 text-white;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, var(--color-primary-light), var(--color-secondary), var(--color-accent));
+  }
+  .bg-gradient-radial {
+    background: radial-gradient(ellipse at center, rgba(196,149,106,0.1), transparent 70%);
+  }
+  .glass {
+    @apply backdrop-blur-xl border rounded-2xl;
+    background: var(--color-glass);
+    border-color: var(--color-glass-border);
+  }
+  .glass-hover {
+    @apply transition-all duration-300;
+  }
+  .glass-hover:hover {
+    background: var(--color-glass-hover);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+  }
+  .gradient-border {
+    position: relative;
+  }
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary), var(--color-accent));
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+  .section-padding {
+    @apply px-4 sm:px-6 lg:px-8 py-20 lg:py-32;
+  }
+  .container-narrow {
+    @apply max-w-6xl mx-auto;
+  }
+}
