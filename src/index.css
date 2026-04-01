@@ -46,6 +46,10 @@
   100% { background-position: 0% 50%; }
 }
 
+@utility animate-spin-slow {
+  animation: spin 4s linear infinite;
+}
+
 @layer base {
   * {
     scrollbar-width: thin;

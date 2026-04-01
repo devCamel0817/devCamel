@@ -62,7 +62,7 @@ export default function AboutSection() {
                 <div className="space-y-4 text-surface-400 leading-relaxed text-sm">
                   <p>
                     느려도 끝까지 가는 풀스택 개발자입니다.
-                    Java · Spring Boot 기반 백엔드와 Vue.js 기반 프론트엔드를
+                    Java · Spring Boot 기반 백엔드와 Vue.js · React 기반 프론트엔드를
                     넘나들며 실서비스를 구축합니다.
                   </p>
                   <p>

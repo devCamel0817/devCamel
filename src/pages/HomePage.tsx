@@ -167,7 +167,7 @@ export default function HomePage() {
             </div>
 
             <p className="text-lg sm:text-xl text-surface-400 max-w-2xl mx-auto mb-10 leading-relaxed">
-              Java · Spring Boot · Vue.js 기반 풀스택 개발자.
+              Java · Spring Boot · Vue.js · React 기반 풀스택 개발자.
               <br className="hidden sm:block" />
               결제/물류 도메인 경험, 대용량 데이터 최적화, 레거시 시스템 현대화.
             </p>
