@@ -15,7 +15,7 @@ const demoProjects: CareerProject[] = [
   {
     id: 1,
     title: 'CTK CLIP 사이트 리뉴얼',
-    description: '코스메카코리아 그룹 B2B 이커머스 플랫폼을 델파이 레거시에서 웹 기반으로 전환. KCP/PayPal/EximBay 결제 연동 및 EasyPost/CJ 물류 자동화.',
+    description: '코스메카코리아 그룹 B2B 이커머스 플랫폼 리뉴얼. KCP/PayPal/EximBay 결제 연동 및 EasyPost/CJ 물류 자동화.',
     imageUrl: '',
     tags: ['Java', 'Spring Boot', 'MyBatis', 'MySQL', 'Vue3', 'Quasar'],
     period: '2025.08 - 2026.01',
@@ -31,15 +31,16 @@ const demoProjects: CareerProject[] = [
   {
     id: 2,
     title: '강북삼성병원 건강검진 차세대 OCS',
-    description: '삼성SDS 협업 프로젝트. 건강검진 시스템을 MSA 아키텍처로 재설계하고, 판정 배치 성능을 3시간에서 1.5시간으로 50% 개선.',
+    description: '삼성SDS 협업 프로젝트. 델파이 레거시 건강검진 시스템을 웹 기반 MSA 아키텍처로 전환·재설계하고, 판정 배치 성능을 3시간에서 1.5시간으로 50% 개선.',
     imageUrl: '',
-    tags: ['Java', 'Spring Boot', 'JPA', 'QueryDSL', 'PostgreSQL', 'Vue3', 'Docker', 'Argo CD'],
+    tags: ['Java', 'Spring Boot', 'JPA', 'QueryDSL', 'PostgreSQL', 'Vue3', 'Chart.js', 'Docker', 'Argo CD'],
     period: '2024.05 - 2025.05',
     company: '삼성SDS 협업',
     role: 'Backend Developer',
     achievements: [
       '검진 판정 배치 성능 50% 향상 (3h → 1.5h)',
       'MSA 도메인 분산 설계 (수진자·검사·판정·통계)',
+      'Chart.js 기반 검진 통계 대시보드 개발',
       '공통 컴포넌트/에러핸들러 표준화',
     ],
     createdAt: '2024-05-01',
@@ -47,7 +48,7 @@ const demoProjects: CareerProject[] = [
   {
     id: 3,
     title: '경기도청 GSEEK 고도화',
-    description: '경기도 평생학습 플랫폼 고도화. ZOOM API 연동 실시간 화상강의, BizMailer 대량메일, Chart.js 통계 대시보드 개발.',
+    description: '경기도 평생학습 플랫폼 고도화. ZOOM API 연동 실시간 화상강의, BizMailer 대량메일 발송 시스템 개발.',
     imageUrl: '',
     tags: ['Java', 'Spring Boot', 'MyBatis', 'MariaDB', 'JSP', 'Docker', 'Jenkins'],
     period: '2023.06 - 2024.04',
@@ -56,7 +57,6 @@ const demoProjects: CareerProject[] = [
     achievements: [
       'ZOOM API 연동 실시간 화상 강의 시스템',
       'BizMailer API로 대량 메일 발송 자동화',
-      'Chart.js 기반 관리자 통계 대시보드',
     ],
     createdAt: '2023-06-01',
   },
