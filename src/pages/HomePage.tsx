@@ -50,7 +50,7 @@ const achievements = [
   { label: '배치 성능 향상', value: 50, suffix: '%', sub: '3h → 1.5h', color: 'text-accent' },
   { label: '생산성 향상', value: 20, suffix: '%', sub: '공통 모듈 구축', color: 'text-primary' },
   { label: '실무 프로젝트', value: 4, suffix: '개', sub: '결제·물류·의료·교육', color: 'text-secondary' },
-  { label: '실무 경력', value: 3.2, suffix: '년', sub: 'Full-Stack Developer', color: 'text-accent-light' },
+  { label: '실무 경력', value: 3, suffix: '년', sub: 'Full-Stack Developer', color: 'text-accent-light' },
 ];
 
 function useCountUp(target: number, inView: boolean, duration = 2000) {
@@ -136,7 +136,7 @@ export default function HomePage() {
               animate={{ scale: 1 }}
               className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/30 text-primary-light text-sm mb-8"
             >
-              3년 2개월 경력 · Full-Stack Developer
+              3년 경력 · Full-Stack Developer
             </motion.div>
 
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight mb-6">
@@ -184,8 +184,8 @@ export default function HomePage() {
                 </motion.button>
               </Link>
               <a
-                href="/resume.pdf"
-                download="정규진_이력서_2026.pdf"
+                href="/정규진_이력서.pdf"
+                download="정규진_이력서.pdf"
               >
                 <motion.button
                   whileHover={{ scale: 1.05 }}

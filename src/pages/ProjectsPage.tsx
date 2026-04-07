@@ -109,7 +109,7 @@ export default function ProjectsPage() {
               <span className="text-gradient">Projects</span>
             </h2>
             <p className="text-surface-400 max-w-xl mx-auto">
-              3년 2개월간 실무에서 수행한 프로젝트들입니다.
+              3년간 실무에서 수행한 프로젝트들입니다.
             </p>
           </motion.div>
 

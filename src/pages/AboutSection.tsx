@@ -46,7 +46,7 @@ export default function AboutSection() {
               About <span className="text-gradient">Me</span>
             </h2>
             <p className="text-surface-400 max-w-xl mx-auto">
-              3년 2개월 실무 경험. Java/Spring Boot 백엔드부터 Vue.js 프론트엔드, Docker/K8s 인프라까지.
+              3년 실무 경험. Java/Spring Boot 백엔드부터 Vue.js 프론트엔드, Docker/K8s 인프라까지.
             </p>
           </motion.div>
 
@@ -77,7 +77,7 @@ export default function AboutSection() {
                 {/* Quick stats */}
                 <div className="grid grid-cols-3 gap-4 mt-8 pt-6 border-t border-glass-border">
                   {[
-                    { value: '3.2', label: 'Years Exp.' },
+                    { value: '3', label: 'Years Exp.' },
                     { value: '4', label: 'Projects' },
                     { value: '∞', label: 'Passion' },
                   ].map((stat) => (
