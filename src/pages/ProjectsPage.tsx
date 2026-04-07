@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaSearch } from 'react-icons/fa';
+import { FaSearch, FaExternalLinkAlt } from 'react-icons/fa';
 import { PageTransition, GlassCard } from '../components/ui';
 import type { Project } from '../types';
 
@@ -18,6 +18,7 @@ const demoProjects: CareerProject[] = [
     description: '코스메카코리아 그룹 B2B 이커머스 플랫폼 리뉴얼. KCP/PayPal/EximBay 결제 연동 및 EasyPost/CJ 물류 자동화.',
     imageUrl: '',
     tags: ['Java', 'Spring Boot', 'MyBatis', 'MySQL', 'Vue3', 'Quasar'],
+    liveUrl: 'https://www.ctkclip.com/',
     period: '2025.08 - 2026.01',
     company: '프리랜서',
     role: 'Fullstack Developer',
@@ -51,6 +52,7 @@ const demoProjects: CareerProject[] = [
     description: '경기도 평생학습 플랫폼 고도화. ZOOM API 연동 실시간 화상강의, BizMailer 대량메일 발송 시스템 개발.',
     imageUrl: '',
     tags: ['Java', 'Spring Boot', 'MyBatis', 'MariaDB', 'JSP', 'Docker', 'Jenkins'],
+    liveUrl: 'https://www.gseek.kr/',
     period: '2023.06 - 2024.04',
     company: '경기도청',
     role: 'Fullstack Developer',
@@ -216,6 +218,19 @@ export default function ProjectsPage() {
                         </span>
                       ))}
                     </div>
+
+                    {/* Live Link */}
+                    {project.liveUrl && (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 mt-3 text-xs text-accent-light hover:text-accent transition-colors"
+                      >
+                        <FaExternalLinkAlt className="text-[10px]" />
+                        사이트 바로가기
+                      </a>
+                    )}
                   </GlassCard>
                 </motion.div>
               ))}
