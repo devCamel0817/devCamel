@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Camel body -->
+  <ellipse cx="32" cy="38" rx="16" ry="10" fill="#C8956C"/>
+  <!-- Hump -->
+  <ellipse cx="28" cy="29" rx="7" ry="5" fill="#B8854C"/>
+  <ellipse cx="36" cy="30" rx="6" ry="4" fill="#B8854C"/>
+  <!-- Neck -->
+  <path d="M18 36 Q14 28 16 18" stroke="#C8956C" stroke-width="6" stroke-linecap="round" fill="none"/>
+  <!-- Head -->
+  <ellipse cx="15" cy="15" rx="7" ry="5.5" fill="#C8956C"/>
+  <!-- Snout -->
+  <ellipse cx="10" cy="16.5" rx="4" ry="3" fill="#D4A574"/>
+  <!-- Eye -->
+  <circle cx="14" cy="13" r="2" fill="#1a1a2e"/>
+  <circle cx="14.6" cy="12.4" r="0.7" fill="white"/>
+  <!-- Ear -->
+  <ellipse cx="19" cy="11" rx="2" ry="3" fill="#B8854C" transform="rotate(-15 19 11)"/>
+  <!-- Legs -->
+  <rect x="21" y="45" width="4" height="12" rx="2" fill="#B8854C"/>
+  <rect x="29" y="45" width="4" height="12" rx="2" fill="#B8854C"/>
+  <rect x="35" y="45" width="4" height="12" rx="2" fill="#B8854C"/>
+  <rect x="42" y="45" width="4" height="12" rx="2" fill="#B8854C"/>
+  <!-- Tail -->
+  <path d="M48 35 Q54 32 52 28" stroke="#B8854C" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <circle cx="52" cy="27" r="1.5" fill="#B8854C"/>
+  <!-- Headphones -->
+  <path d="M8 12 Q8 4 20 4 Q22 4 22 8" stroke="#6C63FF" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <rect x="6" y="11" width="4" height="6" rx="2" fill="#6C63FF"/>
+  <rect x="20" y="7" width="4" height="6" rx="2" fill="#6C63FF"/>
+  <!-- Code brackets on body -->
+  <text x="24" y="41" font-family="monospace" font-size="10" font-weight="bold" fill="#6C63FF" opacity="0.8">&lt;/&gt;</text>
+  <!-- Glasses -->
+  <rect x="11" y="11" width="5" height="4" rx="1.5" stroke="#6C63FF" stroke-width="1" fill="none" opacity="0.9"/>
+  <line x1="16" y1="13" x2="18" y2="12.5" stroke="#6C63FF" stroke-width="0.8" opacity="0.9"/>
+</svg>

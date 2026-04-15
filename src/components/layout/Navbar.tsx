@@ -2,6 +2,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { HiMenu, HiX } from 'react-icons/hi';
+import CamelLogo from '../icons/CamelLogo';
 
 const navLinks = [
   { to: '/', label: 'Home' },
@@ -24,9 +25,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center font-bold text-white text-sm">
-              🐪
-            </div>
+            <CamelLogo size={32} />
             <span className="text-lg font-bold text-gradient">DevCamel</span>
           </Link>
 

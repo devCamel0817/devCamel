@@ -9,6 +9,13 @@ export interface Project {
   createdAt: string;
 }
 
+export interface CareerProject extends Project {
+  period: string;
+  company: string;
+  role: string;
+  achievements: string[];
+}
+
 export interface PageResponse<T> {
   content: T[];
   totalPages: number;

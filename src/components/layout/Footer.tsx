@@ -1,4 +1,5 @@
 import { FaGithub, FaEnvelope } from 'react-icons/fa';
+import CamelLogo from '../icons/CamelLogo';
 
 export default function Footer() {
   return (
@@ -8,9 +9,7 @@ export default function Footer() {
           {/* Logo & tagline */}
           <div className="text-center md:text-left">
             <div className="flex items-center gap-2 justify-center md:justify-start">
-              <div className="w-6 h-6 rounded-md bg-gradient-to-br from-primary to-secondary flex items-center justify-center font-bold text-white text-xs">
-                🐪
-              </div>
+              <CamelLogo size={24} />
               <span className="font-bold text-gradient">DevCamel</span>
             </div>
             <p className="text-sm text-surface-400 mt-2">
