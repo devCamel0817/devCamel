@@ -1,73 +1,45 @@
-# React + TypeScript + Vite
+# devCamel
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**devCamel**은 저의 경력, 프로젝트, 기술, 성장 과정을 한눈에 보여주는 개발자 포트폴리오 웹사이트입니다. TypeScript, React, Tailwind CSS 등 최신 프론트엔드 스택을 활용해 직접 설계·개발했습니다.
 
-Currently, two official plugins are available:
+## 주요 섹션
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+### 1. About & Projects
+- 실제 SI/프리랜서 경험 기반의 실전 프로젝트 중심 포트폴리오
+- 주요 프로젝트: B2B 이커머스, 병원 차세대 시스템, 공공기관 플랫폼 등
+- 각 프로젝트별 역할, 성과, 사용 기술, 기간, 상세 설명 제공
 
-## React Compiler
+### 2. Labs (알고리즘/시뮬레이션 실험실)
+- **Sorting Algorithms**: Bubble, Selection, Insertion, Quick, Merge Sort 시각화
+- **Pathfinding Algorithms**: BFS, DFS, Dijkstra, A* 경로 탐색 시각화
+- **Boids Simulation**: 단순 규칙으로 구현한 군집 행동 시뮬레이션
+- **Fourier Transform**: 그림을 그리면 푸리에 변환으로 원들이 따라 그리는 시각화
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+> 알고리즘을 직접 눈으로 보고, 원리와 동작을 직관적으로 이해할 수 있도록 만든 실험실(Labs)입니다.
 
-## Expanding the ESLint configuration
+## 커밋 메시지 규칙
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Conventional Commits 규칙 사용
+- 예시:  
+  - feat: 새로운 알고리즘 시각화 추가  
+  - fix: 프로젝트 기간 표기 오류 수정  
+  - refactor: Labs 코드 구조 개선  
+  - docs: README 업데이트  
+  - chore: 패키지 업데이트
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 아키텍처/특징
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- **타입 안전성**: 프로젝트/경력/날짜/태그 등 모든 데이터 엄격 타입화
+- **유틸 함수 분리**: 날짜·태그 등 반복 로직은 별도 함수로 관리
+- **SVG/테마 일관성**: 커스텀 SVG 로고, CSS 변수 기반 테마
+- **컴포넌트 분리**: UI/로직/데이터 구조화, 확장성 고려
+- **애니메이션/UX**: Framer Motion, 반응형, 접근성(A11y) 반영
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 시작하기
+1. 의존성 설치: `npm install`
+2. 개발 서버 실행: `npm run dev`
+3. 빌드: `npm run build`
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+문의/기여 환영합니다!
