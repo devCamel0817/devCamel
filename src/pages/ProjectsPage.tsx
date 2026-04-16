@@ -3,6 +3,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FaSearch, FaExternalLinkAlt } from 'react-icons/fa';
 import { PageTransition, GlassCard } from '../components/ui';
 import { projects } from '../data/projects';
+import type { Period } from '../types/project';
+
+function formatPeriod(period: Period): string {
+  const fmt = (ym: string) => `${ym.slice(0, 4)}.${ym.slice(4)}`;
+  return period.end === 'present'
+    ? `${fmt(period.start)} - 현재`
+    : `${fmt(period.start)} - ${fmt(period.end)}`;
+}
 
 const allTags = [...new Set(projects.flatMap((p) => p.tags))];
 
@@ -106,7 +114,7 @@ export default function ProjectsPage() {
                     {/* Header: period + company */}
                     <div className="flex items-center justify-between mb-3">
                       <span className="text-xs px-2.5 py-1 rounded-full bg-accent/10 text-accent-light border border-accent/20">
-                        {project.period}
+                        {formatPeriod(project.period)}
                       </span>
                       <span className="text-xs text-surface-500">
                         {project.company}

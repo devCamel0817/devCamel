@@ -1,5 +1,6 @@
 import type { CareerProject } from '../types';
 
+
 export const projects: CareerProject[] = [
   {
     id: 1,
@@ -9,7 +10,7 @@ export const projects: CareerProject[] = [
     imageUrl: '',
     tags: ['Java', 'Spring Boot', 'MyBatis', 'MySQL', 'Vue3', 'Quasar'],
     liveUrl: 'https://www.ctkclip.com/',
-    period: '2025.08 - 2026.01',
+    period: { start: '202508', end: '202601' },
     company: '프리랜서',
     role: 'Fullstack Developer',
     achievements: [
@@ -36,7 +37,7 @@ export const projects: CareerProject[] = [
       'Docker',
       'Argo CD',
     ],
-    period: '2024.05 - 2025.05',
+    period: { start: '202405', end: '202505' },
     company: '삼성SDS 협업',
     role: 'Backend Developer',
     achievements: [
@@ -55,7 +56,7 @@ export const projects: CareerProject[] = [
     imageUrl: '',
     tags: ['Java', 'Spring Boot', 'MyBatis', 'MariaDB', 'JSP', 'Docker', 'Jenkins'],
     liveUrl: 'https://www.gseek.kr/',
-    period: '2023.06 - 2024.04',
+    period: { start: '202306', end: '202404' },
     company: '경기도청',
     role: 'Fullstack Developer',
     achievements: [
@@ -71,7 +72,7 @@ export const projects: CareerProject[] = [
       '기존 SCM EPC 시스템을 신규 인프라로 이관. 대용량 Oracle 쿼리 튜닝 및 프로시저 최적화로 안정적 마이그레이션 완수.',
     imageUrl: '',
     tags: ['Java', 'Spring Framework', 'MyBatis', 'Oracle', 'SVN'],
-    period: '2022.12 - 2023.05',
+    period: { start: '202212', end: '202305' },
     company: '롯데유통',
     role: 'Backend Developer',
     achievements: [
