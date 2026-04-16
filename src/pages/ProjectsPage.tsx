@@ -3,20 +3,16 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FaSearch, FaExternalLinkAlt } from 'react-icons/fa';
 import { PageTransition, GlassCard } from '../components/ui';
 import { projects } from '../data/projects';
-import type { Period } from '../types/project';
 
-function formatPeriod(period: Period): string {
-  const fmt = (ym: string) => `${ym.slice(0, 4)}.${ym.slice(4)}`;
-  return period.end === 'present'
-    ? `${fmt(period.start)} - 현재`
-    : `${fmt(period.start)} - ${fmt(period.end)}`;
-}
+import { formatPeriod } from '../utils/format';
+import { unique } from '../utils/array';
+import type { Tag } from '../types/project';
 
-const allTags = [...new Set(projects.flatMap((p) => p.tags))];
+const allTags = unique(projects.flatMap((p) => p.tags));
 
 export default function ProjectsPage() {
   const [search, setSearch] = useState('');
-  const [selectedTag, setSelectedTag] = useState<string | null>(null);
+  const [selectedTag, setSelectedTag] = useState<Tag | null>(null);
 
   const filtered = projects.filter((p) => {
     const matchesSearch =
