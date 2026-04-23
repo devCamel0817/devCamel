@@ -9,6 +9,23 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        // === NEW (Phase 1) ===
+        paper: 'var(--color-paper)',
+        'paper-2': 'var(--color-paper-2)',
+        'paper-3': 'var(--color-paper-3)',
+        ink: 'var(--color-ink)',
+        'ink-soft': 'var(--color-ink-soft)',
+        'ink-mute': 'var(--color-ink-mute)',
+        camel: 'var(--color-camel)',
+        'camel-light': 'var(--color-camel-light)',
+        'camel-deep': 'var(--color-camel-deep)',
+        tape: 'var(--color-tape)',
+        'mac-red': 'var(--color-mac-red)',
+        'mac-yellow': 'var(--color-mac-yellow)',
+        'mac-green': 'var(--color-mac-green)',
+        line: 'var(--color-line)',
+        'line-strong': 'var(--color-line-strong)',
+        // === LEGACY (호환) ===
         primary: 'var(--color-primary)',
         'primary-light': 'var(--color-primary-light)',
         'primary-dark': 'var(--color-primary-dark)',
@@ -41,6 +58,10 @@ module.exports = {
           'JetBrains Mono',
           'Fira Code',
           'monospace',
+        ],
+        hand: [
+          'Caveat',
+          'cursive',
         ],
       },
     },

@@ -1,55 +1,53 @@
 import { FaGithub, FaEnvelope } from 'react-icons/fa';
-import CamelLogo from '../icons/CamelLogo';
 
 export default function Footer() {
   return (
-    <footer className="border-t border-glass-border py-12">
+    <footer className="bg-paper-2 border-t border-line py-10 mt-12">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          {/* Logo & tagline */}
           <div className="text-center md:text-left">
-            <div className="flex items-center gap-2 justify-center md:justify-start">
-              <CamelLogo size={24} />
-              <span className="font-bold text-gradient">DevCamel</span>
+            <div className="flex items-end gap-1 justify-center md:justify-start">
+              <span className="font-hand text-2xl text-ink leading-none">DevCamel</span>
+              <span className="font-hand text-camel-deep text-xl leading-none -mb-0.5">.</span>
             </div>
-            <p className="text-sm text-surface-400 mt-2">
-              정규진 — Fullstack Developer Portfolio
+            <p className="text-sm text-ink-soft mt-1">
+              정규진 — fullstack developer portfolio
             </p>
           </div>
 
-          {/* Tech badges */}
           <div className="flex flex-wrap justify-center gap-2">
-            {['React', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'EmailJS'].map((tech) => (
+            {['React', 'TypeScript', 'Tailwind', 'Framer Motion', 'EmailJS'].map((tech) => (
               <span
                 key={tech}
-                className="text-xs px-3 py-1 rounded-full bg-surface-800 text-surface-400 border border-glass-border"
+                className="text-xs px-3 py-1 rounded-full bg-paper text-ink-soft border border-line"
               >
                 {tech}
               </span>
             ))}
           </div>
 
-          {/* Social links */}
           <div className="flex items-center gap-4">
             <a
               href="https://github.com/devCamel0817"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-surface-400 hover:text-white transition-colors"
+              className="text-ink-soft hover:text-ink transition-colors"
+              aria-label="GitHub"
             >
               <FaGithub size={20} />
             </a>
             <a
               href="mailto:devCamel0817@gmail.com"
-              className="text-surface-400 hover:text-secondary transition-colors"
+              className="text-ink-soft hover:text-camel-deep transition-colors"
+              aria-label="Email"
             >
               <FaEnvelope size={20} />
             </a>
           </div>
         </div>
 
-        <div className="mt-8 pt-6 border-t border-glass-border text-center text-xs text-surface-500">
-          © {new Date().getFullYear()} DevCamel — 정규진. All rights reserved.
+        <div className="mt-8 pt-6 border-t border-line text-center text-xs text-ink-mute">
+          © {new Date().getFullYear()} DevCamel — 정규진. handcrafted with paper &amp; code.
         </div>
       </div>
     </footer>

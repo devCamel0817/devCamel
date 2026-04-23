@@ -1,13 +1,8 @@
 import { motion } from 'framer-motion';
-import type { ReactNode } from 'react';
 
-interface Props {
-  children: ReactNode;
-  className?: string;
-  hover?: boolean;
-}
+import type { GlassCardProps } from './types';
 
-export default function GlassCard({ children, className = '', hover = true }: Props) {
+export default function GlassCard({ children, className = '', hover = true }: GlassCardProps) {
   return (
     <motion.div
       whileHover={hover ? { y: -4, scale: 1.01 } : undefined}

@@ -1,7 +1,30 @@
 @import "tailwindcss";
 
 @theme {
-  /* Camel / Desert Theme */
+  /* ========================================================================
+   * NEW DESIGN SYSTEM (Phase 1) — Paper Scrapbook + Camel Accent
+   * 기존 surface/primary 토큰은 호환을 위해 아래에 그대로 둠.
+   * 새 페이지/컴포넌트는 paper-*, ink-*, camel-* 토큰을 사용한다.
+   * ====================================================================== */
+  --color-paper: #f5f1e8;          /* 전체 배경 (크림 베이지) */
+  --color-paper-2: #ebe4d3;        /* 카드/패널 */
+  --color-paper-3: #ddd2bb;        /* 더 깊은 종이 */
+  --color-ink: #2a2418;            /* 본문 텍스트 (먹) */
+  --color-ink-soft: #6b5d4f;       /* 보조 텍스트 */
+  --color-ink-mute: #9c8c7a;       /* 더 흐린 텍스트 */
+  --color-camel: #c4956a;          /* 포인트 */
+  --color-camel-light: #d4a574;
+  --color-camel-deep: #a87850;
+  --color-tape: rgba(232, 213, 168, 0.75);
+  --color-mac-red: #ff5f57;
+  --color-mac-yellow: #febc2e;
+  --color-mac-green: #28c840;
+  --color-line: rgba(42, 36, 24, 0.08);   /* 종이 위 가는 선 */
+  --color-line-strong: rgba(42, 36, 24, 0.18);
+
+  --font-hand: 'Caveat', cursive;
+
+  /* ====== LEGACY (기존 페이지 호환용 — 손대지 말 것) ====== */
   --color-primary: #c4956a;
   --color-primary-light: #d4a574;
   --color-primary-dark: #b08050;
@@ -108,5 +131,53 @@
   }
   .container-narrow {
     @apply max-w-6xl mx-auto;
+  }
+
+  /* ========================================================================
+   * NEW UTILITIES (Phase 1)
+   * ====================================================================== */
+
+  /* 종이 배경 — 크림 베이지 + 미세 그리드 + 노이즈 */
+  .bg-paper {
+    background-color: var(--color-paper);
+    background-image:
+      linear-gradient(var(--color-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-line) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+  .bg-paper-plain {
+    background-color: var(--color-paper);
+  }
+
+  /* 종이 카드 — 미세한 결, 옅은 그림자 */
+  .paper-card {
+    background-color: #fafaf3;
+    border: 1px solid rgba(42, 36, 24, 0.06);
+    box-shadow:
+      0 1px 2px rgba(42, 36, 24, 0.04),
+      0 8px 24px -12px rgba(42, 36, 24, 0.12);
+    border-radius: 6px;
+  }
+
+  /* 마스킹 테이프 (장식용 ::before/::after 대신 element로 쓰기 위한 클래스) */
+  .masking-tape {
+    background: var(--color-tape);
+    box-shadow: 0 1px 2px rgba(42, 36, 24, 0.08);
+    height: 26px;
+    width: 80px;
+    transform: rotate(-4deg);
+  }
+
+  /* 손글씨 폰트 */
+  .font-hand {
+    font-family: var(--font-hand);
+  }
+
+  /* 낙타색 잉크 밑줄 강조 */
+  .ink-underline {
+    background-image: linear-gradient(180deg, transparent 60%, rgba(196, 149, 106, 0.35) 60%);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    padding: 0 2px;
   }
 }

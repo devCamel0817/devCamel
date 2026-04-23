@@ -1,64 +1,332 @@
-import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence, useInView } from 'framer-motion';
+import { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { FaGithub, FaArrowRight, FaFileDownload } from 'react-icons/fa';
-import { HiCode, HiDatabase, HiServer } from 'react-icons/hi';
-import { PageTransition, GlassCard } from '../components/ui';
-import AboutSection from './AboutSection';
-import ContactSection from './ContactSection';
+import { motion, useInView } from 'framer-motion';
+import { FaArrowRight, FaGithub, FaFileDownload } from 'react-icons/fa';
+import { PageTransition } from '../components/ui';
+import { PaperCard, Terminal, MacWindow } from '../components/paper';
 
-const typingWords = [
-  'Build · Ship · Repeat 🚀',
-  'Java & Spring Boot',
-  '레거시를 현대화하는 개발자',
-  'Clean Code Enthusiast',
-  '복잡한 문제를 단순하게',
-  'Never Stop Learning 🐪',
-];
+import { highlights } from '../data/highlights';
+import { achievements } from '../data/achievements';
 
-const floatingOrbs = [
-  { color: 'from-primary to-primary-light', size: 'w-72 h-72', pos: '-top-20 -left-20', delay: 0 },
-  { color: 'from-secondary to-secondary-light', size: 'w-96 h-96', pos: '-bottom-32 -right-32', delay: 2 },
-  { color: 'from-accent to-accent-light', size: 'w-64 h-64', pos: 'top-1/2 left-1/2', delay: 4 },
-];
+/* ------------------------------------------------------------------ */
+/* HOME — 종이 스크랩북 콜라주 hero + 아래 섹션들                       */
+/* ------------------------------------------------------------------ */
+export default function HomePage() {
+  return (
+    <PageTransition>
+      <div className="bg-paper text-ink min-h-screen">
+        <Hero />
+        <Highlights />
+        <Achievements />
+        <TechMarquee />
+      </div>
+    </PageTransition>
+  );
+}
 
-const highlights = [
-  {
-    icon: HiServer,
-    title: '결제 · 물류 도메인',
-    description: 'KCP/PayPal/EximBay 결제 연동, EasyPost/CJ 물류 자동화 등 실서비스 도메인 경험.',
-    color: 'text-primary',
-    bg: 'bg-primary/10',
-  },
-  {
-    icon: HiDatabase,
-    title: '대용량 데이터 처리',
-    description: '판정 배치 성능 50% 향상 (3h → 1.5h), Oracle SQL 튜닝 및 쿼리 최적화.',
-    color: 'text-accent',
-    bg: 'bg-accent/10',
-  },
-  {
-    icon: HiCode,
-    title: '레거시 현대화',
-    description: '델파이 → 웹 전환, MSA 도메인 분산 설계, 공통 모듈 구축으로 생산성 20% 향상.',
-    color: 'text-secondary',
-    bg: 'bg-secondary/10',
-  },
-];
+/* ============================================================ HERO */
+function Hero() {
+  return (
+    <section className="relative overflow-hidden min-h-[100vh] pt-10 pb-20">
+      {/* 좌상단 데스크의 좌표 메모 (Yan Liu 스타일 오마주) */}
+      <div className="hidden lg:block absolute top-6 right-8 font-mono text-[11px] text-ink-mute tracking-wider">
+        37.5665°N&nbsp;·&nbsp;126.9780°E&nbsp;·&nbsp;Seoul
+      </div>
 
-const achievements = [
-  { label: '배치 성능 향상', value: 50, suffix: '%', sub: '3h → 1.5h', color: 'text-accent' },
-  { label: '생산성 향상', value: 20, suffix: '%', sub: '공통 모듈 구축', color: 'text-primary' },
-  { label: '실무 프로젝트', value: 4, suffix: '개', sub: '결제·물류·의료·교육', color: 'text-secondary' },
-  { label: '실무 경력', value: 3, suffix: '년', sub: 'Full-Stack Developer', color: 'text-accent-light' },
-];
+      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 lg:h-[720px]">
+        {/* ID Badge (좌측) */}
+        <motion.div
+          initial={{ opacity: 0, y: -20, rotate: -8 }}
+          animate={{ opacity: 1, y: 0, rotate: -6 }}
+          transition={{ duration: 0.6 }}
+          className="lg:absolute lg:left-0 lg:top-12 mx-auto lg:mx-0 max-w-[220px]"
+        >
+          <IdBadge />
+        </motion.div>
 
-function useCountUp(target: number, inView: boolean, duration = 2000) {
+        {/* 중앙 헤드라인 */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.1 }}
+          className="lg:absolute lg:left-1/2 lg:top-24 lg:-translate-x-1/2 text-center mt-12 lg:mt-0"
+        >
+          <h1 className="font-hand text-[88px] sm:text-[120px] lg:text-[140px] leading-none text-ink">
+            DevCamel
+          </h1>
+          <div className="mt-1 tracking-[0.4em] text-xs sm:text-sm text-ink-soft">
+            I&nbsp;&nbsp;CODE,&nbsp;&nbsp;THEN&nbsp;&nbsp;I&nbsp;&nbsp;SHIP
+          </div>
+        </motion.div>
+
+        {/* 우상단 — "Currently" 노트 */}
+        <motion.div
+          initial={{ opacity: 0, x: 30, rotate: 8 }}
+          animate={{ opacity: 1, x: 0, rotate: 5 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="hidden lg:block lg:absolute lg:right-2 lg:top-32 w-[260px]"
+        >
+          <PaperCard tape="left" className="px-5 py-4">
+            <div className="font-hand text-2xl text-camel-deep mb-1">currently</div>
+            <p className="text-[13px] text-ink-soft leading-relaxed">
+              CTK CLIP B2B 이커머스 리뉴얼.
+              결제·물류 통합과 공통 모듈로 생산성을 끌어올리는 중.
+            </p>
+          </PaperCard>
+        </motion.div>
+
+        {/* 좌하단 — Resume 티켓 */}
+        <motion.div
+          initial={{ opacity: 0, y: 20, rotate: -3 }}
+          animate={{ opacity: 1, y: 0, rotate: -3 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="hidden lg:block lg:absolute lg:left-4 lg:bottom-20"
+        >
+          <ResumeTicket />
+        </motion.div>
+
+        {/* 중앙 하단 — 터미널 */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.35 }}
+          className="lg:absolute lg:left-1/2 lg:bottom-12 lg:-translate-x-1/2 max-w-[480px] mx-auto mt-12 lg:mt-0 w-full"
+        >
+          <Terminal
+            title="devcamel — zsh"
+            lines={[
+              { cmd: 'whoami' },
+              { out: 'Fullstack Developer · 3y · Java/Spring & Vue/React' },
+              { cmd: 'ls focus/' },
+              { out: 'payments/  logistics/  legacy-modernization/' },
+            ]}
+          />
+        </motion.div>
+
+        {/* 우하단 — 액션 버튼 묶음 */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.45 }}
+          className="lg:absolute lg:right-4 lg:bottom-24 flex flex-col gap-2 mt-8 lg:mt-0 items-center lg:items-stretch"
+        >
+          <Link to="/projects">
+            <button className="w-52 px-5 py-3 rounded-md bg-ink text-paper hover:bg-camel-deep transition-colors text-sm font-medium flex items-center justify-center gap-2">
+              프로젝트 보기 <FaArrowRight className="text-xs" />
+            </button>
+          </Link>
+          <a
+            href="https://github.com/devCamel0817"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <button className="w-52 px-5 py-3 rounded-md border border-ink/20 text-ink hover:border-camel hover:text-camel-deep transition-colors text-sm font-medium flex items-center justify-center gap-2">
+              <FaGithub /> GitHub
+            </button>
+          </a>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+/* ID Badge — 줄에 매달린 사원증 */
+function IdBadge() {
+  return (
+    <div className="relative">
+      {/* 끈 */}
+      <div className="absolute left-1/2 -translate-x-1/2 -top-10 w-2 h-10 bg-ink/80" aria-hidden />
+      <div className="absolute left-1/2 -translate-x-1/2 -top-12 w-6 h-3 rounded-full border-2 border-ink/70" aria-hidden />
+      {/* 카드 */}
+      <div className="bg-ink text-paper rounded-lg p-4 shadow-[0_8px_24px_-8px_rgba(42,36,24,0.4)]">
+        <div className="text-[11px] tracking-widest text-camel-light mb-1">DEVCAMEL · ID</div>
+        <div className="text-2xl font-bold mb-3 leading-tight">
+          정규진
+          <span className="text-xs font-normal text-paper/60 ml-2">Jung Gyujin</span>
+        </div>
+        <div className="w-full aspect-square rounded-md bg-paper-3 flex items-center justify-center overflow-hidden">
+          <img
+            src="/img/증명사진.jfif"
+            alt="정규진 프로필 사진"
+            className="w-full h-full object-cover"
+            draggable={false}
+          />
+        </div>
+        <div className="mt-3 text-[10px] font-mono text-paper/70 leading-relaxed">
+          ROLE&nbsp;&nbsp;Fullstack Developer<br />
+          STACK&nbsp;Java · Spring · Vue · React<br />
+          SINCE&nbsp;2022
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* Resume 티켓 */
+function ResumeTicket() {
+  return (
+    <a
+      href="/정규진_이력서.pdf"
+      download="정규진_이력서.pdf"
+      className="group block"
+    >
+      <div className="relative flex bg-paper-2 paper-card overflow-hidden w-[280px] hover:bg-paper-3 transition-colors">
+        {/* 좌측 stub */}
+        <div className="bg-ink text-paper px-3 py-4 flex flex-col items-center justify-center border-r border-dashed border-ink/40">
+          <div className="text-[10px] tracking-widest mb-1">ADMIT</div>
+          <FaFileDownload className="text-camel-light" />
+          <div className="text-[10px] tracking-widest mt-1">ONE</div>
+        </div>
+        {/* 본문 */}
+        <div className="px-4 py-3 flex-1">
+          <div className="text-[10px] tracking-widest text-ink-mute mb-1">RESUME · 2026</div>
+          <div className="text-sm font-bold text-ink leading-tight">정규진_이력서.pdf</div>
+          <div className="text-[11px] text-ink-soft mt-1">클릭해서 다운로드</div>
+        </div>
+        {/* 우측 perforation */}
+        <div className="w-2 bg-paper-3 border-l border-dashed border-ink/30" />
+      </div>
+    </a>
+  );
+}
+
+/* ====================================================== HIGHLIGHTS */
+function Highlights() {
+  return (
+    <section className="py-24 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-5xl mx-auto">
+        <div className="mb-12 text-center">
+          <div className="font-hand text-camel-deep text-3xl mb-1">strengths</div>
+          <h2 className="text-2xl sm:text-3xl font-bold text-ink">
+            핵심 <span className="ink-underline">강점</span>
+          </h2>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {highlights.map((h, i) => {
+            const rotate = [-2, 1.5, -1][i] ?? 0;
+            return (
+              <motion.div
+                key={h.title}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ delay: i * 0.1 }}
+              >
+                <PaperCard rotate={rotate} tape={i % 2 === 0 ? 'center' : false} className="p-6 h-full">
+                  <div className="w-11 h-11 rounded-md bg-camel/15 flex items-center justify-center mb-4">
+                    <h.icon className="w-5 h-5 text-camel-deep" />
+                  </div>
+                  <h3 className="text-lg font-bold text-ink mb-2">{h.title}</h3>
+                  <p className="text-sm text-ink-soft leading-relaxed">{h.description}</p>
+                </PaperCard>
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ==================================================== ACHIEVEMENTS */
+function Achievements() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { amount: 0.3, once: false });
+
+  return (
+    <section ref={ref} className="py-24 px-4 sm:px-6 lg:px-8 border-y border-line">
+      <div className="max-w-5xl mx-auto">
+        <div className="mb-12 text-center">
+          <div className="font-hand text-camel-deep text-3xl mb-1">numbers</div>
+          <h2 className="text-2xl sm:text-3xl font-bold text-ink">
+            숫자로 보는 <span className="ink-underline">성과</span>
+          </h2>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          {achievements.map((a, i) => (
+            <AchievementNote key={a.label} item={a} index={i} inView={inView} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function AchievementNote({
+  item,
+  index,
+  inView,
+}: {
+  item: typeof achievements[0];
+  index: number;
+  inView: boolean;
+}) {
+  const count = useCountUp(item.value, inView);
+  const rotates = [-3, 2, -1.5, 2.5];
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: false }}
+      transition={{ delay: index * 0.1 }}
+    >
+      <PaperCard rotate={rotates[index] ?? 0} tape={index % 2 === 1 ? 'right' : 'left'} className="px-5 py-7 text-center">
+        <div className="text-4xl sm:text-5xl font-bold text-camel-deep tabular-nums mb-2">
+          {count}{item.suffix}
+        </div>
+        <div className="text-sm font-semibold text-ink mb-1">{item.label}</div>
+        <div className="text-[11px] text-ink-mute">{item.sub}</div>
+      </PaperCard>
+    </motion.div>
+  );
+}
+
+/* ====================================================== TECH STACK */
+function TechMarquee() {
+  const techs = [
+    'Java 17', 'Spring Boot', 'JPA', 'QueryDSL', 'MyBatis',
+    'Vue 3', 'Quasar', 'React', 'TypeScript',
+    'PostgreSQL', 'MariaDB', 'Oracle',
+    'Docker', 'Kubernetes', 'Jenkins', 'Argo CD', 'MSA',
+  ];
+  return (
+    <section className="py-20 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-5xl mx-auto mb-8 text-center">
+        <div className="font-hand text-camel-deep text-3xl mb-1">stack</div>
+        <h2 className="text-2xl sm:text-3xl font-bold text-ink">
+          쓰는 <span className="ink-underline">기술들</span>
+        </h2>
+      </div>
+      <MacWindow title="~/devcamel/stack" className="max-w-5xl mx-auto" bodyClassName="px-6 py-6">
+        <div className="flex flex-wrap gap-2.5">
+          {techs.map((t, i) => {
+            const rotate = ((i * 37) % 9) - 4;
+            return (
+              <span
+                key={t}
+                className="inline-flex items-center px-3 py-1.5 text-[13px] font-medium bg-paper text-ink border border-line-strong rounded-md shadow-[0_1px_0_rgba(42,36,24,0.04)]"
+                style={{ transform: `rotate(${rotate * 0.4}deg)` }}
+              >
+                {t}
+              </span>
+            );
+          })}
+        </div>
+      </MacWindow>
+    </section>
+  );
+}
+
+/* ====================================================== UTILITY */
+function useCountUp(target: number, inView: boolean, duration = 1500) {
   const [count, setCount] = useState(0);
   useEffect(() => {
-    if (!inView) { setCount(0); return; }
+    if (!inView) {
+      setCount(0);
+      return;
+    }
     const isDecimal = target % 1 !== 0;
-    const steps = 60;
+    const steps = 50;
     const increment = target / steps;
     let current = 0;
     let step = 0;
@@ -75,281 +343,4 @@ function useCountUp(target: number, inView: boolean, duration = 2000) {
     return () => clearInterval(interval);
   }, [target, inView, duration]);
   return count;
-}
-
-export default function HomePage() {
-  const [wordIndex, setWordIndex] = useState(0);
-  const [text, setText] = useState('');
-  const [isDeleting, setIsDeleting] = useState(false);
-
-  useEffect(() => {
-    const current = typingWords[wordIndex];
-    const timeout = setTimeout(
-      () => {
-        if (!isDeleting) {
-          setText(current.slice(0, text.length + 1));
-          if (text.length + 1 === current.length) {
-            setTimeout(() => setIsDeleting(true), 1500);
-          }
-        } else {
-          setText(current.slice(0, text.length - 1));
-          if (text.length - 1 === 0) {
-            setIsDeleting(false);
-            setWordIndex((prev) => (prev + 1) % typingWords.length);
-          }
-        }
-      },
-      isDeleting ? 40 : 80,
-    );
-    return () => clearTimeout(timeout);
-  }, [text, isDeleting, wordIndex]);
-
-  return (
-    <PageTransition>
-      {/* ========== HERO ========== */}
-      <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
-        {floatingOrbs.map((orb, i) => (
-          <motion.div
-            key={i}
-            animate={{
-              y: [0, -30, 0],
-              x: [0, 15, 0],
-              scale: [1, 1.1, 1],
-            }}
-            transition={{
-              duration: 8,
-              repeat: Infinity,
-              delay: orb.delay,
-            }}
-            className={`absolute ${orb.pos} ${orb.size} rounded-full bg-gradient-to-br ${orb.color} opacity-10 blur-3xl pointer-events-none`}
-          />
-        ))}
-
-        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-          >
-            <motion.div
-              initial={{ scale: 0.9 }}
-              animate={{ scale: 1 }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/30 text-primary-light text-sm mb-8"
-            >
-              3년 경력 · Full-Stack Developer
-            </motion.div>
-
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight mb-6">
-              <span className="text-white">정규진</span>
-              <br />
-              <span className="text-gradient">느려도 끝까지 가는 개발자</span>
-            </h1>
-
-            {/* Typing animation */}
-            <div className="h-10 flex items-center justify-center mb-6">
-              <span className="text-xl sm:text-2xl text-accent-light font-mono">
-                {'> '}
-                <AnimatePresence mode="wait">
-                  <motion.span
-                    key={wordIndex + text}
-                    initial={{ opacity: 0.8 }}
-                    animate={{ opacity: 1 }}
-                  >
-                    {text}
-                  </motion.span>
-                </AnimatePresence>
-                <motion.span
-                  animate={{ opacity: [1, 0] }}
-                  transition={{ duration: 0.6, repeat: Infinity, repeatType: 'reverse' }}
-                  className="inline-block w-0.5 h-6 bg-accent-light ml-0.5 align-middle"
-                />
-              </span>
-            </div>
-
-            <p className="text-lg sm:text-xl text-surface-400 max-w-2xl mx-auto mb-10 leading-relaxed">
-              Java · Spring Boot · Vue.js · React 기반 풀스택 개발자.
-              <br className="hidden sm:block" />
-              결제/물류 도메인 경험, 대용량 데이터 최적화, 레거시 시스템 현대화.
-            </p>
-
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-20">
-              <Link to="/projects">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="w-48 py-3.5 rounded-xl bg-gradient-to-r from-primary to-secondary text-white font-semibold text-sm flex items-center justify-center gap-2 shadow-lg shadow-primary/25"
-                >
-                  프로젝트 둘러보기
-                  <FaArrowRight />
-                </motion.button>
-              </Link>
-              <a
-                href="/정규진_이력서.pdf"
-                download="정규진_이력서.pdf"
-              >
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="w-48 py-3.5 rounded-xl bg-accent/20 border border-accent/30 text-accent-light font-semibold text-sm flex items-center justify-center gap-2 hover:bg-accent/30 transition-colors"
-                >
-                  <FaFileDownload />
-                  이력서 다운로드
-                </motion.button>
-              </a>
-              <a
-                href="https://github.com/devCamel0817"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="w-48 py-3.5 rounded-xl bg-surface-800 border border-glass-border text-white font-semibold text-sm flex items-center justify-center gap-2 hover:bg-surface-700 transition-colors"
-                >
-                  <FaGithub />
-                  GitHub
-                </motion.button>
-              </a>
-            </div>
-          </motion.div>
-        </div>
-
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20"
-        >
-          <div className="w-6 h-10 rounded-full border-2 border-surface-500 flex justify-center pt-2">
-            <div className="w-1.5 h-3 rounded-full bg-surface-500" />
-          </div>
-        </motion.div>
-      </section>
-
-      {/* ========== HIGHLIGHTS ========== */}
-      <section className="section-padding">
-        <div className="container-narrow">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-              핵심 <span className="text-gradient">강점</span>
-            </h2>
-            <p className="text-surface-400 max-w-xl mx-auto">
-              실무에서 검증된 역량들입니다.
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {highlights.map((f, i) => (
-              <motion.div
-                key={f.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false }}
-                transition={{ delay: i * 0.15 }}
-              >
-                <GlassCard className="h-full">
-                  <div className={`w-12 h-12 rounded-xl ${f.bg} flex items-center justify-center mb-4`}>
-                    <f.icon className={`w-6 h-6 ${f.color}`} />
-                  </div>
-                  <h3 className="text-lg font-semibold text-white mb-2">{f.title}</h3>
-                  <p className="text-sm text-surface-400 leading-relaxed">{f.description}</p>
-                </GlassCard>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ========== ACHIEVEMENT COUNTERS ========== */}
-      <AchievementCounters />
-
-      {/* ========== TECH STACK BANNER ========== */}
-      <section className="py-16 border-y border-glass-border overflow-hidden">
-        <motion.div
-          animate={{ x: [0, -1200] }}
-          transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
-          className="flex gap-12 whitespace-nowrap"
-        >
-          {[...Array(2)].map((_, groupIdx) => (
-            <div key={groupIdx} className="flex gap-12">
-              {[
-                'Java 17', 'Spring Boot', 'JPA', 'QueryDSL', 'MyBatis',
-                'Vue3', 'Quasar', 'PostgreSQL', 'MariaDB', 'Oracle',
-                'Docker', 'Kubernetes', 'Jenkins', 'Argo CD', 'MSA',
-              ].map((tech) => (
-                <span key={`${groupIdx}-${tech}`} className="text-2xl font-bold text-surface-700">
-                  {tech}
-                </span>
-              ))}
-            </div>
-          ))}
-        </motion.div>
-      </section>
-
-      {/* ========== ABOUT (inline) ========== */}
-      <AboutSection />
-
-      {/* ========== CONTACT (inline) ========== */}
-      <ContactSection />
-    </PageTransition>
-  );
-}
-
-function AchievementCounters() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { amount: 0.4 });
-
-  return (
-    <section ref={ref} className="py-20 relative overflow-hidden">
-      {/* 배경 그라데이션 */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent pointer-events-none" />
-
-      <div className="container-narrow relative z-10 px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false }}
-          className="text-center mb-14"
-        >
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-            숫자로 보는 <span className="text-gradient">성과</span>
-          </h2>
-          <p className="text-surface-400 max-w-xl mx-auto">
-            실무에서 만들어낸 결과들입니다.
-          </p>
-        </motion.div>
-
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          {achievements.map((a, i) => (
-            <AchievementCard key={a.label} item={a} index={i} inView={inView} />
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function AchievementCard({ item, index, inView }: { item: typeof achievements[0]; index: number; inView: boolean }) {
-  const count = useCountUp(item.value, inView);
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.8 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: false }}
-      transition={{ delay: index * 0.12 }}
-    >
-      <GlassCard className="text-center py-8">
-        <div className={`text-4xl sm:text-5xl font-bold ${item.color} mb-2 tabular-nums`}>
-          {count}{item.suffix}
-        </div>
-        <div className="text-sm font-medium text-white mb-1">{item.label}</div>
-        <div className="text-xs text-surface-500">{item.sub}</div>
-      </GlassCard>
-    </motion.div>
-  );
 }

@@ -364,7 +364,8 @@ export default function SortingPage() {
 
   return (
     <PageTransition>
-      <section className="section-padding">
+      <div className="bg-paper text-ink min-h-screen">
+      <section className="section-padding pt-28">
         <div className="container-narrow px-4">
           {/* Header */}
           <motion.div
@@ -373,13 +374,13 @@ export default function SortingPage() {
             viewport={{ once: false }}
             className="text-center mb-12"
           >
-            <Link to="/labs" className="inline-flex items-center gap-1 text-sm text-surface-400 hover:text-accent transition-colors mb-4">
+            <Link to="/labs" className="inline-flex items-center gap-1 text-sm text-ink-soft hover:text-camel-deep transition-colors mb-4">
               <FaArrowLeft /> Labs
             </Link>
-            <h1 className="text-4xl sm:text-5xl font-bold text-white mb-4">
-              정렬 알고리즘 <span className="text-gradient">시각화</span>
+            <h1 className="text-4xl sm:text-5xl font-bold text-ink mb-4">
+              정렬 알고리즘 <span className="text-ink">시각화</span>
             </h1>
-            <p className="text-surface-400 max-w-xl mx-auto">
+            <p className="text-ink-soft max-w-xl mx-auto">
               다양한 정렬 알고리즘의 동작 원리를 시각적으로 확인하세요.
             </p>
           </motion.div>
@@ -393,8 +394,8 @@ export default function SortingPage() {
                 disabled={running}
                 className={`px-4 py-2 text-sm rounded-xl transition-colors disabled:opacity-50 ${
                   algo === a.key
-                    ? 'bg-primary text-white'
-                    : 'bg-surface-800 text-surface-400 hover:text-white border border-glass-border'
+                    ? 'bg-primary text-ink'
+                    : 'bg-paper-2 text-ink-soft hover:text-ink border border-line-strong'
                 }`}
               >
                 {a.label}
@@ -409,7 +410,7 @@ export default function SortingPage() {
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-8"
           >
-            <span className="text-sm text-surface-400">{selectedAlgo.desc}</span>
+            <span className="text-sm text-ink-soft">{selectedAlgo.desc}</span>
             <span className="mx-2 text-surface-600">·</span>
             <span className="text-sm text-accent font-mono">{selectedAlgo.complexity}</span>
           </motion.div>
@@ -440,27 +441,27 @@ export default function SortingPage() {
                 <button
                   onClick={play}
                   disabled={done}
-                  className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-white text-sm font-medium hover:bg-primary-dark transition-colors disabled:opacity-50"
+                  className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-ink text-sm font-medium hover:bg-primary-dark transition-colors disabled:opacity-50"
                 >
                   <FaPlay size={12} /> 실행
                 </button>
               ) : (
                 <button
                   onClick={pause}
-                  className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-secondary text-white text-sm font-medium hover:bg-secondary/80 transition-colors"
+                  className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-secondary text-ink text-sm font-medium hover:bg-secondary/80 transition-colors"
                 >
                   <FaPause size={12} /> 일시정지
                 </button>
               )}
               <button
                 onClick={reset}
-                className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-surface-800 text-surface-400 text-sm font-medium border border-glass-border hover:text-white transition-colors"
+                className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-paper-2 text-ink-soft text-sm font-medium border border-line-strong hover:text-ink transition-colors"
               >
                 <FaRedo size={12} /> 초기화
               </button>
               <button
                 onClick={shuffle}
-                className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-surface-800 text-surface-400 text-sm font-medium border border-glass-border hover:text-white transition-colors"
+                className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-paper-2 text-ink-soft text-sm font-medium border border-line-strong hover:text-ink transition-colors"
               >
                 <FaRandom size={12} /> 셔플
               </button>
@@ -468,15 +469,15 @@ export default function SortingPage() {
 
             {/* Speed */}
             <div className="flex items-center gap-1">
-              <span className="text-xs text-surface-500 mr-2">속도</span>
+              <span className="text-xs text-ink-mute mr-2">속도</span>
               {SPEED_OPTIONS.map((s, i) => (
                 <button
                   key={s.label}
                   onClick={() => setSpeedIdx(i)}
                   className={`px-3 py-1.5 text-xs rounded-lg transition-colors ${
                     speedIdx === i
-                      ? 'bg-accent text-white'
-                      : 'bg-surface-800 text-surface-400 border border-glass-border hover:text-white'
+                      ? 'bg-accent text-ink'
+                      : 'bg-paper-2 text-ink-soft border border-line-strong hover:text-ink'
                   }`}
                 >
                   {s.label}
@@ -486,7 +487,7 @@ export default function SortingPage() {
 
             {/* Count */}
             <div className="flex items-center gap-2">
-              <span className="text-xs text-surface-500">개수</span>
+              <span className="text-xs text-ink-mute">개수</span>
               <input
                 type="range"
                 min={10}
@@ -495,7 +496,7 @@ export default function SortingPage() {
                 value={barCount}
                 disabled={running}
                 onChange={(e) => { setBarCount(Number(e.target.value)); }}
-                className="w-24 h-1.5 rounded-full appearance-none bg-surface-700 cursor-pointer disabled:opacity-40 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3.5 [&::-webkit-slider-thumb]:h-3.5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-primary [&::-webkit-slider-thumb]:cursor-pointer"
+                className="w-24 h-1.5 rounded-full appearance-none bg-paper-3 cursor-pointer disabled:opacity-40 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3.5 [&::-webkit-slider-thumb]:h-3.5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-primary [&::-webkit-slider-thumb]:cursor-pointer"
               />
               <span className="text-xs text-primary tabular-nums font-mono w-6 text-right">{barCount}</span>
             </div>
@@ -505,28 +506,28 @@ export default function SortingPage() {
           <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
             <GlassCard className="text-center py-4">
               <div className="text-2xl font-bold text-accent tabular-nums">{comparisons}</div>
-              <div className="text-xs text-surface-500">비교 횟수</div>
+              <div className="text-xs text-ink-mute">비교 횟수</div>
             </GlassCard>
             <GlassCard className="text-center py-4">
               <div className="text-2xl font-bold text-secondary tabular-nums">{swaps}</div>
-              <div className="text-xs text-surface-500">교환 횟수</div>
+              <div className="text-xs text-ink-mute">교환 횟수</div>
             </GlassCard>
             <GlassCard className="text-center py-4">
               <div className="text-2xl font-bold text-yellow-400 tabular-nums font-mono">{(elapsed / 1000).toFixed(2)}s</div>
-              <div className="text-xs text-surface-500">소요 시간</div>
+              <div className="text-xs text-ink-mute">소요 시간</div>
             </GlassCard>
             <GlassCard className="text-center py-4">
               <div className="text-2xl font-bold text-primary tabular-nums">{barCount}</div>
-              <div className="text-xs text-surface-500">데이터 수</div>
+              <div className="text-xs text-ink-mute">데이터 수</div>
             </GlassCard>
             <GlassCard className="text-center py-4">
-              <div className="text-2xl font-bold text-white font-mono">{selectedAlgo.complexity}</div>
-              <div className="text-xs text-surface-500">시간 복잡도</div>
+              <div className="text-2xl font-bold text-ink font-mono">{selectedAlgo.complexity}</div>
+              <div className="text-xs text-ink-mute">시간 복잡도</div>
             </GlassCard>
           </div>
 
           {/* Legend */}
-          <div className="flex flex-wrap justify-center gap-4 mt-6 text-xs text-surface-400">
+          <div className="flex flex-wrap justify-center gap-4 mt-6 text-xs text-ink-soft">
             <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-sm bg-surface-500" /> 기본</span>
             <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-sm bg-accent" /> 비교 중</span>
             <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-sm bg-secondary" /> 교환</span>
@@ -535,6 +536,7 @@ export default function SortingPage() {
           </div>
         </div>
       </section>
+      </div>
     </PageTransition>
   );
 }

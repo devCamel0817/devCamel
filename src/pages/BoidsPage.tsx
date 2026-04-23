@@ -213,21 +213,17 @@ export default function BoidsPage() {
     }
   }, []);
 
-  /* ── Animation loop ── */
-  const loop = useCallback(() => {
-    if (!pausedRef.current) {
-      simulate();
-    }
-    render();
-    rafRef.current = requestAnimationFrame(loop);
-  }, [simulate, render]);
-
   /* Start */
   useEffect(() => {
     initBoids(count);
+    const loop = () => {
+      if (!pausedRef.current) simulate();
+      render();
+      rafRef.current = requestAnimationFrame(loop);
+    };
     rafRef.current = requestAnimationFrame(loop);
     return () => cancelAnimationFrame(rafRef.current);
-  }, [initBoids, loop, count]);
+  }, [initBoids, simulate, render, count]);
 
   /* ── Preset apply ── */
   const applyPreset = (key: string) => {
@@ -243,16 +239,8 @@ export default function BoidsPage() {
     initBoids(BOID_COUNT);
   };
 
-  /* ── Slider component ── */
-  const Slider = ({
-    label,
-    value,
-    onChange,
-    min = 0,
-    max = 3,
-    step = 0.1,
-    color,
-  }: {
+  /* ── Slider element factory (avoid React Compiler "component during render" rule) ── */
+  const renderSlider = (props: {
     label: string;
     value: number;
     onChange: (v: number) => void;
@@ -260,39 +248,43 @@ export default function BoidsPage() {
     max?: number;
     step?: number;
     color: string;
-  }) => (
-    <div className="flex items-center gap-3">
-      <span className="text-sm text-surface-400 w-20 shrink-0">{label}</span>
-      <input
-        type="range"
-        min={min}
-        max={max}
-        step={step}
-        value={value}
-        onChange={(e) => onChange(Number(e.target.value))}
-        className={`flex-1 h-1.5 rounded-full appearance-none bg-surface-700 cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:cursor-pointer ${color}`}
-      />
-      <span className="text-sm text-accent tabular-nums font-mono w-10 text-right">
-        {value.toFixed(1)}
-      </span>
-    </div>
-  );
+  }) => {
+    const { label, value, onChange, min = 0, max = 3, step = 0.1, color } = props;
+    return (
+      <div className="flex items-center gap-3">
+        <span className="text-sm text-ink-soft w-20 shrink-0">{label}</span>
+        <input
+          type="range"
+          min={min}
+          max={max}
+          step={step}
+          value={value}
+          onChange={(e) => onChange(Number(e.target.value))}
+          className={`flex-1 h-1.5 rounded-full appearance-none bg-paper-3 cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:cursor-pointer ${color}`}
+        />
+        <span className="text-sm text-camel-deep tabular-nums font-mono w-10 text-right">
+          {value.toFixed(1)}
+        </span>
+      </div>
+    );
+  };
 
   return (
     <PageTransition>
+      <div className="bg-paper text-ink min-h-screen">
       <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16 space-y-6">
         {/* Header */}
         <div>
           <Link
             to="/labs"
-            className="inline-flex items-center gap-1 text-sm text-surface-400 hover:text-accent transition-colors mb-4"
+            className="inline-flex items-center gap-1 text-sm text-ink-soft hover:text-camel-deep transition-colors mb-4"
           >
             <FaArrowLeft /> Labs
           </Link>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-3xl sm:text-4xl font-bold text-gradient"
+            className="text-3xl sm:text-4xl font-bold text-ink"
           >
             Boids Simulation
           </motion.h1>
@@ -300,7 +292,7 @@ export default function BoidsPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-surface-400 mt-2"
+            className="text-ink-soft mt-2"
           >
             3가지 규칙만으로 만들어지는 군집 행동을 관찰하세요
           </motion.p>
@@ -314,7 +306,7 @@ export default function BoidsPage() {
         >
           <canvas
             ref={canvasRef}
-            className="w-full h-[300px] sm:h-[420px] lg:h-[500px] rounded-xl border border-glass-border bg-surface-900"
+            className="w-full h-[300px] sm:h-[420px] lg:h-[500px] rounded-xl border border-line-strong bg-surface-900"
           />
         </motion.div>
 
@@ -322,14 +314,14 @@ export default function BoidsPage() {
         <div className="flex flex-wrap items-center gap-3">
           <button
             onClick={() => setPaused((p) => !p)}
-            className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-accent/20 text-accent hover:bg-accent/30 transition"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-camel/15 text-accent hover:bg-camel/25 transition"
             aria-label={paused ? '재생' : '일시정지'}
           >
             {paused ? <><FaPlay /> 재생</> : <><FaPause /> 일시정지</>}
           </button>
           <button
             onClick={reset}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl glass text-surface-300 hover:text-white transition"
+            className="flex items-center gap-2 px-4 py-2.5 rounded-xl paper-card text-ink-soft hover:text-ink transition"
             aria-label="초기화"
           >
             <FaRedo /> 초기화
@@ -339,7 +331,7 @@ export default function BoidsPage() {
               <button
                 key={key}
                 onClick={() => applyPreset(key)}
-                className="px-3 py-1.5 rounded-lg text-xs glass text-surface-400 hover:text-white hover:border-primary/40 transition capitalize"
+                className="px-3 py-1.5 rounded-lg text-xs paper-card text-ink-soft hover:text-ink hover:border-primary/40 transition capitalize"
               >
                 {key}
               </button>
@@ -349,60 +341,58 @@ export default function BoidsPage() {
 
         {/* Sliders */}
         <GlassCard className="p-6 space-y-4">
-          <Slider
-            label="분리 (Separation)"
-            value={separation}
-            onChange={setSeparation}
-            color="[&::-webkit-slider-thumb]:bg-secondary"
-          />
-          <Slider
-            label="정렬 (Alignment)"
-            value={alignment}
-            onChange={setAlignment}
-            color="[&::-webkit-slider-thumb]:bg-accent"
-          />
-          <Slider
-            label="결합 (Cohesion)"
-            value={cohesion}
-            onChange={setCohesion}
-            color="[&::-webkit-slider-thumb]:bg-primary"
-          />
-          <Slider
-            label="개체 수"
-            value={count}
-            onChange={(v) => {
-              setCount(v);
-              initBoids(v);
-            }}
-            min={20}
-            max={500}
-            step={10}
-            color="[&::-webkit-slider-thumb]:bg-white"
-          />
+          {renderSlider({
+            label: '분리 (Separation)',
+            value: separation,
+            onChange: setSeparation,
+            color: '[&::-webkit-slider-thumb]:bg-secondary',
+          })}
+          {renderSlider({
+            label: '정렬 (Alignment)',
+            value: alignment,
+            onChange: setAlignment,
+            color: '[&::-webkit-slider-thumb]:bg-camel',
+          })}
+          {renderSlider({
+            label: '결합 (Cohesion)',
+            value: cohesion,
+            onChange: setCohesion,
+            color: '[&::-webkit-slider-thumb]:bg-primary',
+          })}
+          {renderSlider({
+            label: '개체 수',
+            value: count,
+            onChange: (v) => setCount(v),
+            min: 20,
+            max: 500,
+            step: 10,
+            color: '[&::-webkit-slider-thumb]:bg-ink',
+          })}
         </GlassCard>
 
         {/* Rules explanation */}
         <div className="grid sm:grid-cols-3 gap-4">
           <GlassCard className="p-5">
             <div className="text-secondary text-lg font-bold mb-1">분리</div>
-            <p className="text-surface-400 text-xs leading-relaxed">
+            <p className="text-ink-soft text-xs leading-relaxed">
               가까운 이웃과 부딪히지 않도록 멀어지는 방향으로 조향합니다
             </p>
           </GlassCard>
           <GlassCard className="p-5">
             <div className="text-accent text-lg font-bold mb-1">정렬</div>
-            <p className="text-surface-400 text-xs leading-relaxed">
+            <p className="text-ink-soft text-xs leading-relaxed">
               주변 이웃들의 평균 방향을 맞춰 같은 방향으로 이동합니다
             </p>
           </GlassCard>
           <GlassCard className="p-5">
             <div className="text-primary text-lg font-bold mb-1">결합</div>
-            <p className="text-surface-400 text-xs leading-relaxed">
+            <p className="text-ink-soft text-xs leading-relaxed">
               주변 이웃들의 무게중심을 향해 모여드는 힘이 작용합니다
             </p>
           </GlassCard>
         </div>
       </section>
+      </div>
     </PageTransition>
   );
 }

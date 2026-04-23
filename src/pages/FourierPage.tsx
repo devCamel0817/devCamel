@@ -387,8 +387,8 @@ export default function FourierPage() {
   const presetBtns = (size: 'sm' | 'md') => {
     const cls =
       size === 'md'
-        ? 'px-5 py-2.5 rounded-xl glass text-surface-300 hover:text-white hover:border-primary/50 transition'
-        : 'px-3 py-1.5 rounded-lg text-xs glass text-surface-400 hover:text-white transition';
+        ? 'px-5 py-2.5 rounded-xl paper-card text-ink-soft hover:text-ink hover:border-primary/50 transition'
+        : 'px-3 py-1.5 rounded-lg text-xs paper-card text-ink-soft hover:text-ink transition';
     return (
       <>
         <button onClick={() => loadPreset(starShape)} className={cls}>⭐ 별</button>
@@ -400,16 +400,17 @@ export default function FourierPage() {
 
   return (
     <PageTransition>
+      <div className="bg-paper text-ink min-h-screen">
       <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16 space-y-6">
         {/* Header */}
         <div>
-          <Link to="/labs" className="inline-flex items-center gap-1 text-sm text-surface-400 hover:text-accent transition-colors mb-4">
+          <Link to="/labs" className="inline-flex items-center gap-1 text-sm text-ink-soft hover:text-camel-deep transition-colors mb-4">
             <FaArrowLeft /> Labs
           </Link>
-          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-3xl sm:text-4xl font-bold text-gradient">
+          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-3xl sm:text-4xl font-bold text-ink">
             Fourier Transform
           </motion.h1>
-          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="text-surface-400 mt-2">
+          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="text-ink-soft mt-2">
             그림을 그리면 회전하는 원들이 그대로 따라 그립니다
           </motion.p>
         </div>
@@ -418,7 +419,7 @@ export default function FourierPage() {
         <motion.div initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2 }}>
           <canvas
             ref={canvasRef}
-            className={`w-full h-[300px] sm:h-[420px] lg:h-[500px] rounded-xl border border-glass-border bg-surface-900 ${mode === 'draw' ? 'cursor-crosshair' : 'cursor-default'}`}
+            className={`w-full h-[300px] sm:h-[420px] lg:h-[500px] rounded-xl border border-line-strong bg-surface-900 ${mode === 'draw' ? 'cursor-crosshair' : 'cursor-default'}`}
             style={{ touchAction: 'none' }}
             onPointerDown={handlePointerDown}
             onPointerMove={handlePointerMove}
@@ -430,47 +431,48 @@ export default function FourierPage() {
         <AnimatePresence mode="wait">
           {mode === 'draw' ? (
             <motion.div key="draw" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="space-y-4">
-              <p className="text-center text-surface-400 text-sm">프리셋을 선택하거나 캔버스에 직접 그려보세요</p>
+              <p className="text-center text-ink-soft text-sm">프리셋을 선택하거나 캔버스에 직접 그려보세요</p>
               <div className="flex flex-wrap justify-center gap-3">{presetBtns('md')}</div>
             </motion.div>
           ) : (
             <motion.div key="anim" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="space-y-4">
               <div className="flex flex-wrap items-center gap-3">
-                <button onClick={togglePause} className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-accent/20 text-accent hover:bg-accent/30 transition" aria-label={paused ? '재생' : '일시정지'}>
+                <button onClick={togglePause} className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-camel/15 text-accent hover:bg-camel/25 transition" aria-label={paused ? '재생' : '일시정지'}>
                   {paused ? <><FaPlay /> 재생</> : <><FaPause /> 일시정지</>}
                 </button>
-                <button onClick={resetDraw} className="flex items-center gap-2 px-5 py-2.5 rounded-xl glass text-surface-300 hover:text-white transition" aria-label="다시 그리기">
+                <button onClick={resetDraw} className="flex items-center gap-2 px-5 py-2.5 rounded-xl paper-card text-ink-soft hover:text-ink transition" aria-label="다시 그리기">
                   <FaPen /> 다시 그리기
                 </button>
-                <div className="ml-auto flex items-center gap-2 glass rounded-xl px-3 py-1.5">
-                  <span className="text-xs text-surface-500">속도</span>
+                <div className="ml-auto flex items-center gap-2 paper-card rounded-xl px-3 py-1.5">
+                  <span className="text-xs text-ink-mute">속도</span>
                   {SPEEDS.map((s, idx) => (
-                    <button key={s.label} onClick={() => setSpeedIdx(idx)} className={`px-2 py-1 rounded-lg text-xs font-medium transition ${idx === speedIdx ? 'bg-accent/20 text-accent' : 'text-surface-400 hover:text-white'}`}>
+                    <button key={s.label} onClick={() => setSpeedIdx(idx)} className={`px-2 py-1 rounded-lg text-xs font-medium transition ${idx === speedIdx ? 'bg-camel/15 text-accent' : 'text-ink-soft hover:text-ink'}`}>
                       {s.label}
                     </button>
                   ))}
                 </div>
               </div>
-              <div className="flex items-center gap-4 glass rounded-xl px-4 py-3">
-                <span className="text-sm text-surface-400 whitespace-nowrap">원 개수</span>
+              <div className="flex items-center gap-4 paper-card rounded-xl px-4 py-3">
+                <span className="text-sm text-ink-soft whitespace-nowrap">원 개수</span>
                 <input
                   type="range"
                   min={1}
                   max={maxCircles}
                   value={numCircles}
                   onChange={(e) => setNumCircles(Number(e.target.value))}
-                  className="flex-1 h-1.5 rounded-full appearance-none bg-surface-700 cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-primary [&::-webkit-slider-thumb]:cursor-pointer"
+                  className="flex-1 h-1.5 rounded-full appearance-none bg-paper-3 cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-primary [&::-webkit-slider-thumb]:cursor-pointer"
                 />
                 <span className="text-sm text-accent tabular-nums font-mono w-14 text-right">{numCircles}개</span>
               </div>
               <div className="flex flex-wrap items-center gap-3">
-                <span className="text-xs text-surface-500">프리셋:</span>
+                <span className="text-xs text-ink-mute">프리셋:</span>
                 {presetBtns('sm')}
               </div>
             </motion.div>
           )}
         </AnimatePresence>
       </section>
+      </div>
     </PageTransition>
   );
 }

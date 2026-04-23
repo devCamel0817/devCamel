@@ -3,7 +3,7 @@ export default function CamelLogo({ size = 32, className = '' }: { size?: number
     <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} fill="none" viewBox="0 0 250 250" className={className}>
         {/* Monitor screen gradient */}
         <path d="m27.72 19.25h135.2c3.89 0 7.01 3.12 7.01 7.01v63.69c0 3.89-3.12 7.01-7.01 7.01h-135.2c-3.89 0-6-3.12-6-7.01v-64.7c0-3.89 2.11-6 6-6z" fill="url(#paint0_linear_1134_223680)"/>
-        <path d="m28.09 20.59h136.4c3.25 0 5.88 2.63 5.88 5.88v63.42c0 3.25-2.63 5.88-5.88 5.88h-136.4c-3.25 0-4.87-2.63-4.87-5.88v-64.48c0-3.25 1.62-4.82 4.87-4.82z" stroke="#1a1410" stroke-miterlimit="10" stroke-width="2.2"/>
+        <path d="m28.09 20.59h136.4c3.25 0 5.88 2.63 5.88 5.88v63.42c0 3.25-2.63 5.88-5.88 5.88h-136.4c-3.25 0-4.87-2.63-4.87-5.88v-64.48c0-3.25 1.62-4.82 4.87-4.82z" stroke="#1a1410" strokeMiterlimit="10" strokeWidth="2.2"/>
         {/* Traffic light dots */}
         <path d="m29.71 25.97c0-1.59 0.85-2.5 2.44-2.5 1.36 0 2.15 1.14 2.15 2.24 0 1.31-0.85 2.28-2.29 2.28s-2.3-1.08-2.3-2.02z" fill="#ef4444"/>
         <path d="m34.22 26.06c0-1.59 0.85-2.5 2.44-2.5 1.36 0 2.15 1.14 2.15 2.24 0 1.31-0.85 2.28-2.29 2.28s-2.3-1.09-2.3-2.02z" fill="#eab308"/>
@@ -56,7 +56,7 @@ export default function CamelLogo({ size = 32, className = '' }: { size?: number
         <path d="m28.49 81.21h1.93v1.93h-1.93v-1.93z" fill="#5eead4"/>
         <path d="m34.79 85.14h16.32v1.93h-16.32v-1.93z" fill="#d4715e"/>
         {/* Webcam */}
-        <path d="m161.7 24.19h5.22c2.48 0 3.68 2.22 3.68 4.71v2.8c0 2.49-1.2 4.11-3.68 4.11h-5.22c-3.3 0-5-2.13-5-4.62v-2.58c0-2.49 1.7-4.42 5-4.42z" fill="#fff5eb" stroke="#1a1410" stroke-miterlimit="10" stroke-width="2.2"/>
+        <path d="m161.7 24.19h5.22c2.48 0 3.68 2.22 3.68 4.71v2.8c0 2.49-1.2 4.11-3.68 4.11h-5.22c-3.3 0-5-2.13-5-4.62v-2.58c0-2.49 1.7-4.42 5-4.42z" fill="#fff5eb" stroke="#1a1410" strokeMiterlimit="10" strokeWidth="2.2"/>
         {/* Second monitor code */}
         <path d="m157.8 71.54h28.15v2.27h-24.62l-0.17-0.49-0.75-1.56-0.7-0.22h-1.91z" fill="#d4715e"/>
         <path d="m166.8 77.11h8.8v1.93h-8.8v-1.93z" fill="#2dd4bf"/>
@@ -74,25 +74,25 @@ export default function CamelLogo({ size = 32, className = '' }: { size?: number
         <path d="m190.8 83.48h7.83v1.93h-7.83v-1.93z" fill="#2dd4bf"/>
         <path d="m166.8 94.43h9.26v1.93h-9.26v-1.93z" fill="#c4956a"/>
         {/* Floor line */}
-        <path d="m7.21 239.7h235" stroke="#1a1410" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2.7"/>
+        <path d="m7.21 239.7h235" stroke="#1a1410" strokeLinecap="round" strokeMiterlimit="10" strokeWidth="2.7"/>
         {/* Chair back */}
-        <path d="m19.09 104.4h25.61l-7.59 51.3h-21.05l-6.3-40.48c-1.2-6.52 2.33-10.82 9.33-10.82z" fill="#5c4f44" stroke="#1a1410" stroke-miterlimit="10" stroke-width="2.7"/>
-        <path d="m22.81 106h18.89l-7.59 49.32h-10.22l-6.07-42.4c-0.66-4.75 0.81-6.92 4.99-6.92z" fill="#8a7a6c" stroke="#1a1410" stroke-miterlimit="10" stroke-width="2.2"/>
+        <path d="m19.09 104.4h25.61l-7.59 51.3h-21.05l-6.3-40.48c-1.2-6.52 2.33-10.82 9.33-10.82z" fill="#5c4f44" stroke="#1a1410" strokeMiterlimit="10" strokeWidth="2.7"/>
+        <path d="m22.81 106h18.89l-7.59 49.32h-10.22l-6.07-42.4c-0.66-4.75 0.81-6.92 4.99-6.92z" fill="#8a7a6c" stroke="#1a1410" strokeMiterlimit="10" strokeWidth="2.2"/>
         {/* Desk surface */}
-        <path d="m16.06 164.8v6.62h218.2v-7.49l-218.2 0.87z" fill="#5c4f44" stroke="#1a1410" stroke-miterlimit="10" stroke-width="2.2"/>
+        <path d="m16.06 164.8v6.62h218.2v-7.49l-218.2 0.87z" fill="#5c4f44" stroke="#1a1410" strokeMiterlimit="10" strokeWidth="2.2"/>
         {/* Desk legs */}
-        <path d="m20.19 173.8h7.67v65.16h-7.67v-65.16z" fill="#5c4f44" stroke="#1a1410" stroke-miterlimit="10" stroke-width="2.2"/>
-        <path d="m222 172.6h7.14v66.59h-7.14v-66.59z" fill="#8a7a6c" stroke="#1a1410" stroke-miterlimit="10" stroke-width="2.2"/>
-        <path d="m72.89 172.9h7.14v66h-7.14v-66z" fill="#8a7a6c" stroke="#1a1410" stroke-miterlimit="10" stroke-width="2.2"/>
-        <path d="m172.5 172.1h8.69v66.7h-8.69v-66.7z" fill="#3a312a" stroke="#1a1410" stroke-miterlimit="10" stroke-width="2.2"/>
+        <path d="m20.19 173.8h7.67v65.16h-7.67v-65.16z" fill="#5c4f44" stroke="#1a1410" strokeMiterlimit="10" strokeWidth="2.2"/>
+        <path d="m222 172.6h7.14v66.59h-7.14v-66.59z" fill="#8a7a6c" stroke="#1a1410" strokeMiterlimit="10" strokeWidth="2.2"/>
+        <path d="m72.89 172.9h7.14v66h-7.14v-66z" fill="#8a7a6c" stroke="#1a1410" strokeMiterlimit="10" strokeWidth="2.2"/>
+        <path d="m172.5 172.1h8.69v66.7h-8.69v-66.7z" fill="#3a312a" stroke="#1a1410" strokeMiterlimit="10" strokeWidth="2.2"/>
         {/* Chair parts */}
-        <path d="m37.22 172.9 2.69 3.85c3 3.46 7 5.39 14.31 5.39h15.88v12.34l-35.24-0.86c-3.9-0.34-6.08-5.79-4.21-8.33l3.57-1.93-2.59-9.56 5.59-0.9z" fill="#5c4f44" stroke="#1a1410" stroke-miterlimit="10" stroke-width="2.2"/>
-        <path d="m80.03 184.1h7.9l-1.99 12.58-4.61 1.32-1.3-13.9z" fill="#5c4f44" stroke="#1a1410" stroke-miterlimit="10" stroke-width="2.2"/>
-        <path d="m105.2 184.1h6.13l0.42 4.07-2.94 4.95-4.04 1.32 0.43-10.34z" fill="#5c4f44" stroke="#1a1410" stroke-miterlimit="10" stroke-width="2.2"/>
+        <path d="m37.22 172.9 2.69 3.85c3 3.46 7 5.39 14.31 5.39h15.88v12.34l-35.24-0.86c-3.9-0.34-6.08-5.79-4.21-8.33l3.57-1.93-2.59-9.56 5.59-0.9z" fill="#5c4f44" stroke="#1a1410" strokeMiterlimit="10" strokeWidth="2.2"/>
+        <path d="m80.03 184.1h7.9l-1.99 12.58-4.61 1.32-1.3-13.9z" fill="#5c4f44" stroke="#1a1410" strokeMiterlimit="10" strokeWidth="2.2"/>
+        <path d="m105.2 184.1h6.13l0.42 4.07-2.94 4.95-4.04 1.32 0.43-10.34z" fill="#5c4f44" stroke="#1a1410" strokeMiterlimit="10" strokeWidth="2.2"/>
         <path d="m54.67 196.9 2.24 3.67-8.85 4.47-5.68 0.69-0.85 2.37 1.08 0.91 6.37-1.62 10.83-6.12 0.34-3.64-5.48-0.73z" fill="#1a1410"/>
-        <path d="m64.41 207.4h4.61v9.2h-4.61v-9.2z" fill="#5c4f44" stroke="#1a1410" stroke-miterlimit="10" stroke-width="2.2"/>
-        <path d="m65.32 217.9-24.51 5.37c-4.05 1.03-5.7 3.57-5.7 8.74h7.33v-4.22l23.79-3.35 1.93 2.63v-4.03l-2.84-5.14z" fill="#3a312a" stroke="#1a1410" stroke-miterlimit="10" stroke-width="2.2"/>
-        <path d="m79.28 217.9 16.88 4.71v5.06l-16.88-3.11v-6.66z" fill="#3a312a" stroke="#1a1410" stroke-miterlimit="10" stroke-width="2.2"/>
+        <path d="m64.41 207.4h4.61v9.2h-4.61v-9.2z" fill="#5c4f44" stroke="#1a1410" strokeMiterlimit="10" strokeWidth="2.2"/>
+        <path d="m65.32 217.9-24.51 5.37c-4.05 1.03-5.7 3.57-5.7 8.74h7.33v-4.22l23.79-3.35 1.93 2.63v-4.03l-2.84-5.14z" fill="#3a312a" stroke="#1a1410" strokeMiterlimit="10" strokeWidth="2.2"/>
+        <path d="m79.28 217.9 16.88 4.71v5.06l-16.88-3.11v-6.66z" fill="#3a312a" stroke="#1a1410" strokeMiterlimit="10" strokeWidth="2.2"/>
         {/* Wheels */}
         <path d="m37.96 227.7h0.75c3.38 0 4.7 1.99 4.7 5.36s-2.15 5.36-4.7 5.36h-0.75c-2.54 0-4.34-1.99-4.34-5.36s1.8-5.36 4.34-5.36z" fill="#1a1410"/>
         <path d="m67.41 228.2h0.75c2.55 0 3.69 1.99 3.69 4.54 0 2.54-1.62 4.28-3.69 4.28h-0.75c-2.06 0-3.63-1.73-3.63-4.28s1.57-4.54 3.63-4.54z" fill="#1a1410"/>
@@ -146,17 +146,17 @@ export default function CamelLogo({ size = 32, className = '' }: { size?: number
         <path d="m130.1 194.8c-1.79 4.22 1.1 11.35 4.5 18.77l3.79 9.24-6.36 1.63-4.36-1.46c-1.57-8.89-4.22-18.26-7.57-24.97-1.37-2.81-1.71-4.94 1.12-10.13l3.05-5.79c2.8-2.48 6.8-4.11 9.9-3.42 1.63 0.45 1.63 2.94-0.8 7.3-1.63 2.91-2.49 5.04-3.27 8.83z" fill="#4a3420"/>
         <defs>
             <linearGradient id="paint0_linear_1134_223680" x1="95.57" x2="95.57" y1="19.25" y2="96.96" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#5eead4" offset="0"/>
-            <stop stop-color="#1a4a40" offset="1"/>
+            <stop stopColor="#5eead4" offset="0"/>
+            <stop stopColor="#1a4a40" offset="1"/>
             </linearGradient>
             <linearGradient id="paint1_linear_1134_223680" x1="167" x2="167" y1="102.4" y2="151.9" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#5eead4" offset="0"/>
-            <stop stop-color="#2a6a5a" offset="1"/>
+            <stop stopColor="#5eead4" offset="0"/>
+            <stop stopColor="#2a6a5a" offset="1"/>
             </linearGradient>
             <linearGradient id="paint2_linear_1134_223680" x1="124.1" x2="124.1" y1="12.51" y2="152" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#d4a574" offset="0"/>
-            <stop stop-color="#b08050" offset=".7246"/>
-            <stop stop-color="#7a5a3a" offset="1"/>
+            <stop stopColor="#d4a574" offset="0"/>
+            <stop stopColor="#b08050" offset=".7246"/>
+            <stop stopColor="#7a5a3a" offset="1"/>
             </linearGradient>
         </defs>
     </svg>

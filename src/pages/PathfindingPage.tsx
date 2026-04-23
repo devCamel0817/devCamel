@@ -278,7 +278,7 @@ function cellBg(cell: Cell): string {
   if (cell.type === 'wall') return 'bg-surface-400';
   if (cell.visual === 'path') return 'bg-accent/80';
   if (cell.visual === 'visited') return 'bg-primary/50';
-  return 'bg-surface-800';
+  return 'bg-paper-2';
 }
 
 /* ── Component ── */
@@ -388,8 +388,7 @@ export default function PathfindingPage() {
     timerRef.current = setInterval(() => step(), speeds[speedIdx].ms);
   }, [speedIdx, step]);
 
-  // Reset viz when algo changes
-  useEffect(() => { clearViz(); }, [algo, clearViz]);
+  // Reset viz when algo changes — handled in onClick to avoid effect-driven setState cascades
 
   /* ── Wall drawing ── */
   const handleMouseDown = useCallback(
@@ -428,19 +427,20 @@ export default function PathfindingPage() {
 
   return (
     <PageTransition>
+      <div className="bg-paper text-ink min-h-screen">
       <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16 space-y-8">
         {/* Header */}
         <div>
           <Link
             to="/labs"
-            className="inline-flex items-center gap-1 text-sm text-surface-400 hover:text-accent transition-colors mb-4"
+            className="inline-flex items-center gap-1 text-sm text-ink-soft hover:text-camel-deep transition-colors mb-4"
           >
             <FaArrowLeft /> Labs
           </Link>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-3xl sm:text-4xl font-bold text-gradient"
+            className="text-3xl sm:text-4xl font-bold text-ink"
           >
             Pathfinding Visualizer
           </motion.h1>
@@ -448,7 +448,7 @@ export default function PathfindingPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-surface-400 mt-2"
+            className="text-ink-soft mt-2"
           >
             격자 위에 벽을 그리고, 탐색 알고리즘이 경로를 찾는 과정을 관찰하세요
           </motion.p>
@@ -459,12 +459,12 @@ export default function PathfindingPage() {
           {algos.map((a) => (
             <button
               key={a.key}
-              onClick={() => { if (!running) setAlgo(a.key); }}
+              onClick={() => { if (!running) { setAlgo(a.key); clearViz(); } }}
               disabled={running}
               className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                 algo === a.key
-                  ? 'bg-accent/20 text-accent border border-accent/40'
-                  : 'glass text-surface-300 hover:text-white border border-transparent'
+                  ? 'bg-camel/15 text-accent border border-accent/40'
+                  : 'paper-card text-ink-soft hover:text-ink border border-transparent'
               } disabled:opacity-50`}
             >
               {a.label}
@@ -481,7 +481,7 @@ export default function PathfindingPage() {
         >
           <div className="overflow-x-auto -mx-4 px-4 pb-2">
             <div
-              className="grid gap-px rounded-lg overflow-hidden border border-glass-border select-none mx-auto"
+              className="grid gap-px rounded-lg overflow-hidden border border-line-strong select-none mx-auto"
               style={{ gridTemplateColumns: `repeat(${COLS}, 1fr)`, minWidth: 500 }}
               onContextMenu={(e) => e.preventDefault()}
               onMouseLeave={() => { drawModeRef.current = null; }}
@@ -500,7 +500,7 @@ export default function PathfindingPage() {
               })}
             </div>
           </div>
-          <p className="text-xs text-surface-500 mt-2 text-center">
+          <p className="text-xs text-ink-mute mt-2 text-center">
             {running || done ? '' : '클릭 & 드래그로 벽을 그리세요'}
           </p>
         </motion.div>
@@ -511,7 +511,7 @@ export default function PathfindingPage() {
             <button
               onClick={play}
               disabled={done}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-accent/20 text-accent hover:bg-accent/30 transition disabled:opacity-40"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-camel/15 text-accent hover:bg-camel/25 transition disabled:opacity-40"
               aria-label="시작"
             >
               <FaPlay /> 시작
@@ -527,7 +527,7 @@ export default function PathfindingPage() {
           )}
           <button
             onClick={clearViz}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl glass text-surface-300 hover:text-white transition"
+            className="flex items-center gap-2 px-4 py-2.5 rounded-xl paper-card text-ink-soft hover:text-ink transition"
             aria-label="경로 지우기"
           >
             <FaEraser /> 경로 지우기
@@ -535,7 +535,7 @@ export default function PathfindingPage() {
           <button
             onClick={maze}
             disabled={running}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl glass text-surface-300 hover:text-white transition disabled:opacity-40"
+            className="flex items-center gap-2 px-4 py-2.5 rounded-xl paper-card text-ink-soft hover:text-ink transition disabled:opacity-40"
             aria-label="미로 생성"
           >
             <FaDice /> 미로 생성
@@ -543,20 +543,20 @@ export default function PathfindingPage() {
           <button
             onClick={reset}
             disabled={running}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl glass text-surface-300 hover:text-white transition disabled:opacity-40"
+            className="flex items-center gap-2 px-4 py-2.5 rounded-xl paper-card text-ink-soft hover:text-ink transition disabled:opacity-40"
             aria-label="초기화"
           >
             <FaRedo /> 초기화
           </button>
 
-          <div className="ml-auto flex items-center gap-2 glass rounded-xl px-3 py-1.5">
-            <span className="text-xs text-surface-500">속도</span>
+          <div className="ml-auto flex items-center gap-2 paper-card rounded-xl px-3 py-1.5">
+            <span className="text-xs text-ink-mute">속도</span>
             {speeds.map((s, idx) => (
               <button
                 key={s.label}
                 onClick={() => setSpeedIdx(idx)}
                 className={`px-2 py-1 rounded-lg text-xs font-medium transition ${
-                  idx === speedIdx ? 'bg-accent/20 text-accent' : 'text-surface-400 hover:text-white'
+                  idx === speedIdx ? 'bg-camel/15 text-accent' : 'text-ink-soft hover:text-ink'
                 }`}
               >
                 {s.label}
@@ -569,26 +569,26 @@ export default function PathfindingPage() {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           <GlassCard className="text-center py-4">
             <div className="text-2xl font-bold text-accent tabular-nums">{visitedCount}</div>
-            <div className="text-xs text-surface-500">탐색 노드</div>
+            <div className="text-xs text-ink-mute">탐색 노드</div>
           </GlassCard>
           <GlassCard className="text-center py-4">
             <div className="text-2xl font-bold text-secondary tabular-nums">{pathLength}</div>
-            <div className="text-xs text-surface-500">경로 길이</div>
+            <div className="text-xs text-ink-mute">경로 길이</div>
           </GlassCard>
           <GlassCard className="text-center py-4">
             <div className="text-2xl font-bold text-yellow-400 tabular-nums font-mono">
               {(elapsed / 1000).toFixed(2)}s
             </div>
-            <div className="text-xs text-surface-500">소요 시간</div>
+            <div className="text-xs text-ink-mute">소요 시간</div>
           </GlassCard>
           <GlassCard className="text-center py-4">
-            <div className="text-2xl font-bold text-white font-mono">{selectedAlgo.complexity}</div>
-            <div className="text-xs text-surface-500">시간 복잡도</div>
+            <div className="text-2xl font-bold text-ink font-mono">{selectedAlgo.complexity}</div>
+            <div className="text-xs text-ink-mute">시간 복잡도</div>
           </GlassCard>
         </div>
 
         {/* Legend */}
-        <div className="flex flex-wrap gap-4 text-xs text-surface-400">
+        <div className="flex flex-wrap gap-4 text-xs text-ink-soft">
           <span className="flex items-center gap-1.5">
             <span className="w-3 h-3 rounded-sm bg-accent" /> 시작점
           </span>
@@ -605,10 +605,11 @@ export default function PathfindingPage() {
             <span className="w-3 h-3 rounded-sm bg-accent/80" /> 경로
           </span>
           <span className="flex items-center gap-1.5">
-            <span className="w-3 h-3 rounded-sm bg-surface-800 border border-surface-600" /> 빈 칸
+            <span className="w-3 h-3 rounded-sm bg-paper-2 border border-surface-600" /> 빈 칸
           </span>
         </div>
       </section>
+      </div>
     </PageTransition>
   );
 }

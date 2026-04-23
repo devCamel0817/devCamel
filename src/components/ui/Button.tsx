@@ -1,12 +1,6 @@
 import { motion } from 'framer-motion';
-import type { ButtonHTMLAttributes, ReactNode } from 'react';
 
-interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'ghost' | 'danger';
-  size?: 'sm' | 'md' | 'lg';
-  loading?: boolean;
-  children: ReactNode;
-}
+import type { ButtonProps } from './types';
 
 const variants = {
   primary: 'bg-[color:var(--color-primary)] hover:bg-[color:var(--color-primary-dark)] text-white',
@@ -21,7 +15,7 @@ const sizes = {
   lg: 'px-8 py-3.5 text-base',
 };
 
-export default function Button({
+const Button = ({
   variant = 'primary',
   size = 'md',
   loading,
@@ -29,7 +23,7 @@ export default function Button({
   className = '',
   disabled,
   ...props
-}: Props) {
+}: ButtonProps) => {
   return (
     <motion.button
       whileHover={{ scale: 1.02 }}
@@ -47,4 +41,6 @@ export default function Button({
       {children}
     </motion.button>
   );
-}
+};
+
+export default Button;
