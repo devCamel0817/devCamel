@@ -355,10 +355,7 @@ export default function SortingPage() {
     return () => { if (timerRef.current) clearInterval(timerRef.current); };
   }, [speedIdx, running, step]);
 
-  // Reset when algo changes
-  useEffect(() => {
-    reset();
-  }, [algo, reset]);
+  // Reset on algo change — handled in onClick to avoid effect-driven setState cascades
 
   const selectedAlgo = algorithms.find((a) => a.key === algo)!;
 
@@ -390,7 +387,7 @@ export default function SortingPage() {
             {algorithms.map((a) => (
               <button
                 key={a.key}
-                onClick={() => setAlgo(a.key)}
+                onClick={() => { setAlgo(a.key); reset(); }}
                 disabled={running}
                 className={`px-4 py-2 text-sm rounded-xl transition-colors disabled:opacity-50 ${
                   algo === a.key

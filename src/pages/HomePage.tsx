@@ -30,7 +30,7 @@ function Hero() {
     <section className="relative overflow-hidden min-h-[100vh] pt-10 pb-20">
       {/* 좌상단 데스크의 좌표 메모 (Yan Liu 스타일 오마주) */}
       <div className="hidden lg:block absolute top-6 right-8 font-mono text-[11px] text-ink-mute tracking-wider">
-        37.5665°N&nbsp;·&nbsp;126.9780°E&nbsp;·&nbsp;Seoul
+        37.4999°N&nbsp;·&nbsp;126.9203°E&nbsp;·&nbsp;Seoul
       </div>
 
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 lg:h-[720px]">

@@ -122,6 +122,8 @@ export default function FourierPage() {
   const isDrawingRef = useRef(false);
   const rawRef = useRef<Point[]>([]);
   const drawCtxRef = useRef<CanvasRenderingContext2D | null>(null);
+  const animateRef = useRef<() => void>(() => {});
+  const startAnimRef = useRef<(input: Point[], centered?: boolean) => void>(() => {});
 
   useEffect(() => { pausedRef.current = paused; }, [paused]);
   useEffect(() => { speedRef.current = SPEEDS[speedIdx].factor; }, [speedIdx]);
@@ -198,8 +200,8 @@ export default function FourierPage() {
       drawPrompt();
       return;
     }
-    startAnim(rawRef.current);
-  }, []);
+    startAnimRef.current(rawRef.current);
+  }, [drawPrompt]);
 
   /* ── Start animation ── */
   const startAnim = useCallback(
@@ -244,7 +246,7 @@ export default function FourierPage() {
       modeRef.current = 'animate';
 
       cancelAnimationFrame(rafRef.current);
-      rafRef.current = requestAnimationFrame(animate);
+      rafRef.current = requestAnimationFrame(() => animateRef.current());
     },
     [],
   );
@@ -270,11 +272,8 @@ export default function FourierPage() {
     const now = performance.now();
     const delta = now - lastRef.current;
     lastRef.current = now;
-    const prevAcc = accRef.current;
     if (!pausedRef.current) accRef.current += delta * speedRef.current;
-    const prevCycle = Math.floor(prevAcc / CYCLE_MS);
     const curCycle = Math.floor(accRef.current / CYCLE_MS);
-    if (curCycle > prevCycle) trailRef.current = [];
     const t = ((accRef.current % CYCLE_MS) / CYCLE_MS) * 2 * Math.PI;
 
     ctx.clearRect(0, 0, w, h);
@@ -330,8 +329,8 @@ export default function FourierPage() {
     ctx.fillStyle = '#d4715e';
     ctx.fill();
 
-    /* Trail */
-    if (!pausedRef.current) trailRef.current.push({ x, y });
+    /* Trail — 첫 사이클에서만 누적, 이후 사이클부터는 완성본 유지 */
+    if (!pausedRef.current && curCycle === 0) trailRef.current.push({ x, y });
     const trail = trailRef.current;
     if (trail.length > 1) {
       ctx.beginPath();
@@ -343,8 +342,12 @@ export default function FourierPage() {
       ctx.stroke();
     }
 
-    rafRef.current = requestAnimationFrame(animate);
+    rafRef.current = requestAnimationFrame(() => animateRef.current());
   }, []);
+
+  /* keep latest animate in ref so startAnim can call it without forward-ref error */
+  useEffect(() => { animateRef.current = animate; }, [animate]);
+  useEffect(() => { startAnimRef.current = startAnim; }, [startAnim]);
 
   /* Cleanup */
   useEffect(() => () => cancelAnimationFrame(rafRef.current), []);
