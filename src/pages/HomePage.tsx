@@ -130,34 +130,51 @@ function Hero() {
   );
 }
 
-/* ID Badge — 줄에 매달린 사원증 */
+/* ID Badge — 줄에 매달린 사원증 (살짝 흔들림) */
 function IdBadge() {
   return (
-    <div className="relative">
-      {/* 끈 */}
-      <div className="absolute left-1/2 -translate-x-1/2 -top-10 w-2 h-10 bg-ink/80" aria-hidden />
-      <div className="absolute left-1/2 -translate-x-1/2 -top-12 w-6 h-3 rounded-full border-2 border-ink/70" aria-hidden />
-      {/* 카드 */}
-      <div className="bg-ink text-paper rounded-lg p-4 shadow-[0_8px_24px_-8px_rgba(42,36,24,0.4)]">
-        <div className="text-[11px] tracking-widest text-camel-light mb-1">DEVCAMEL · ID</div>
-        <div className="text-2xl font-bold mb-3 leading-tight">
-          정규진
-          <span className="text-xs font-normal text-paper/60 ml-2">Jung Gyujin</span>
+    <div className="relative pt-12">
+      {/* 고리(고정 핀) */}
+      <div
+        className="absolute left-1/2 -translate-x-1/2 top-0 w-6 h-3 rounded-full border-2 border-ink/70 z-10"
+        aria-hidden
+      />
+      {/* 회전 그룹 — 핀에 매달려 좌우로 흔들림 */}
+      <motion.div
+        className="relative"
+        style={{ transformOrigin: '50% 0%' }}
+        initial={{ rotate: -5 }}
+        animate={{ rotate: [-5, 6, -4, 5, -5] }}
+        transition={{
+          duration: 6,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+      >
+        {/* 끈 */}
+        <div className="absolute left-1/2 -translate-x-1/2 -top-10 w-2 h-10 bg-ink/80" aria-hidden />
+        {/* 카드 */}
+        <div className="bg-ink text-paper rounded-lg p-4 shadow-[0_12px_28px_-10px_rgba(42,36,24,0.45)]">
+          <div className="text-[11px] tracking-widest text-camel-light mb-1">DEVCAMEL · ID</div>
+          <div className="text-2xl font-bold mb-3 leading-tight">
+            정규진
+            <span className="text-xs font-normal text-paper/60 ml-2">Jung Gyujin</span>
+          </div>
+          <div className="w-full aspect-square rounded-md bg-paper-3 flex items-center justify-center overflow-hidden">
+            <img
+              src="/img/증명사진.jfif"
+              alt="정규진 프로필 사진"
+              className="w-full h-full object-cover pointer-events-none select-none"
+              draggable={false}
+            />
+          </div>
+          <div className="mt-3 text-[10px] font-mono text-paper/70 leading-relaxed">
+            ROLE&nbsp;&nbsp;Fullstack Developer<br />
+            STACK&nbsp;Java · Spring · Vue · React<br />
+            SINCE&nbsp;2022
+          </div>
         </div>
-        <div className="w-full aspect-square rounded-md bg-paper-3 flex items-center justify-center overflow-hidden">
-          <img
-            src="/img/증명사진.jfif"
-            alt="정규진 프로필 사진"
-            className="w-full h-full object-cover"
-            draggable={false}
-          />
-        </div>
-        <div className="mt-3 text-[10px] font-mono text-paper/70 leading-relaxed">
-          ROLE&nbsp;&nbsp;Fullstack Developer<br />
-          STACK&nbsp;Java · Spring · Vue · React<br />
-          SINCE&nbsp;2022
-        </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
