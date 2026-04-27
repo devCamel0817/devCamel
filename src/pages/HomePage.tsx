@@ -4,6 +4,7 @@ import { motion, useInView } from 'framer-motion';
 import { FaArrowRight, FaGithub, FaFileDownload } from 'react-icons/fa';
 import { PageTransition } from '../components/ui';
 import { PaperCard, Terminal, MacWindow } from '../components/paper';
+import { useSeoulWeather } from '../hooks/useSeoulWeather';
 
 import { highlights } from '../data/highlights';
 import { achievements } from '../data/achievements';
@@ -26,11 +27,36 @@ export default function HomePage() {
 
 /* ============================================================ HERO */
 function Hero() {
+  const { weather } = useSeoulWeather();
+
   return (
     <section className="relative overflow-hidden min-h-[100vh] pt-10 pb-20">
-      {/* 좌상단 데스크의 좌표 메모 (Yan Liu 스타일 오마주) */}
-      <div className="hidden lg:block absolute top-6 right-8 font-mono text-[11px] text-ink-mute tracking-wider">
-        37.4999°N&nbsp;·&nbsp;126.9203°E&nbsp;·&nbsp;Seoul
+      {/* 날씨에 따른 은은한 배경 오버레이 */}
+      <div
+        className="pointer-events-none absolute inset-0 transition-opacity duration-1000"
+        style={{ background: weather?.overlay ?? 'transparent' }}
+        aria-hidden
+      />
+
+      {/* 좌상단 데스크의 날씨 / 좌표 메모 (Yan Liu 스타일 오마주) */}
+      <div className="hidden lg:flex absolute top-6 right-8 flex-col items-end gap-1 z-10">
+        {weather && (
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-paper-2/80 backdrop-blur border border-line"
+          >
+            <span className="text-base leading-none" aria-hidden>{weather.emoji}</span>
+            <span className={`font-mono text-[12px] tabular-nums ${weather.accent}`}>
+              {Math.round(weather.temperature)}°C
+            </span>
+            <span className="text-[11px] text-ink-soft">· {weather.label}</span>
+          </motion.div>
+        )}
+        <div className="font-mono text-[11px] text-ink-mute tracking-wider">
+          37.4999°N&nbsp;·&nbsp;126.9203°E&nbsp;·&nbsp;Seoul
+        </div>
       </div>
 
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 lg:h-[720px]">
