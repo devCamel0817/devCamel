@@ -66,8 +66,9 @@ export default function AboutSection() {
               <PaperCard rotate={1.5} className="px-5 py-4 max-w-[280px]">
                 <div className="font-hand text-2xl text-camel-deep mb-2">whoami</div>
                 <p className="text-[13px] text-ink-soft leading-relaxed">
-                  느려도 끝까지 가는 풀스택 개발자. 결제·물류 도메인,
-                  대용량 배치 최적화, 레거시 현대화를 주로 다룹니다.
+                  늦게 시작한 만큼 확실히 몰입하는 풀스택 개발자.
+                  결제·물류·헬스케어·커머스 4개 도메인을 횡단하며
+                  배치 최적화와 레거시 현대화를 주로 다뤘습니다.
                 </p>
               </PaperCard>
 

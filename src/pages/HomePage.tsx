@@ -95,8 +95,9 @@ function Hero() {
           <PaperCard tape="left" className="px-5 py-4">
             <div className="font-hand text-2xl text-camel-deep mb-1">currently</div>
             <p className="text-[13px] text-ink-soft leading-relaxed">
-              CTK CLIP B2B 이커머스 리뉴얼.
-              결제·물류 통합과 공통 모듈로 생산성을 끌어올리는 중.
+              CTK CLIP B2B 이커머스 리뉴얼 중.
+              KCP·PayPal·EximBay 결제 연동과 EasyPost·CJ 물류 자동화로
+              미정산·배송 CS를 줄이는 중.
             </p>
           </PaperCard>
         </motion.div>
@@ -123,8 +124,10 @@ function Hero() {
             lines={[
               { cmd: 'whoami' },
               { out: 'Fullstack Developer · 3y · Java/Spring & Vue/React' },
-              { cmd: 'ls focus/' },
-              { out: 'payments/  logistics/  legacy-modernization/' },
+              { cmd: 'ls domains/' },
+              { out: 'payments/  logistics/  healthcare/  commerce/' },
+              { cmd: 'cat focus.md' },
+              { out: '# 배치 최적화 · 레거시 현대화 · 결제 정합성' },
             ]}
           />
         </motion.div>
@@ -285,7 +288,7 @@ function Achievements() {
             숫자로 보는 <span className="ink-underline">성과</span>
           </h2>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
           {achievements.map((a, i) => (
             <AchievementNote key={a.label} item={a} index={i} inView={inView} />
           ))}

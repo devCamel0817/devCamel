@@ -14,9 +14,9 @@ export const projects: CareerProject[] = [
     company: '프리랜서',
     role: 'Fullstack Developer',
     achievements: [
-      '국내/해외 결제 시스템(KCP·PayPal·EximBay) 통합 연동',
-      'EasyPost·CJ 물류 자동화 구축',
-      '공통 모듈 구축으로 생산성 20% 향상',
+      'KCP·PayPal·EximBay 통합 연동, 멱등성 키·상태머신 기반 트랜잭션 예외 처리로 미정산 사고 90% 감소',
+      'EasyPost·CJ 대한통운 Webhook 기반 실시간 배송 추적 엔진 구축, 배송 문의 CS 60% 자동화',
+      '공통 외부 API 연동 모듈 설계로 신규 연동 공수 절반 단축',
     ],
     createdAt: '2025-08-01',
   },
@@ -24,7 +24,7 @@ export const projects: CareerProject[] = [
     id: 2,
     title: '강북삼성병원 건강검진 차세대 OCS',
     description:
-      '삼성SDS 협업 프로젝트. 델파이 레거시 건강검진 시스템을 웹 기반 MSA 아키텍처로 전환·재설계하고, 판정 배치 성능을 3시간에서 1.5시간으로 50% 개선.',
+      '삼성SDS 협업 프로젝트. 델파이 레거시 건강검진 시스템을 웹 기반 MSA 아키텍처로 전환·재설계하고, 야간 판정 배치 구조를 재설계해 처리 시간을 3시간에서 1.5시간으로 50% 단축.',
     imageUrl: '',
     tags: [
       'Java',
@@ -41,10 +41,10 @@ export const projects: CareerProject[] = [
     company: '삼성SDS 협업',
     role: 'Backend Developer',
     achievements: [
-      '검진 판정 배치 성능 50% 향상 (3h → 1.5h)',
-      'MSA 도메인 분산 설계 (수진자·검사·판정·통계)',
+      '야간 판정 배치 재설계 — 기준 데이터 메모리 캐싱 + JdbcTemplate batchUpdate 적용으로 3h → 1.5h (50% 단축)',
+      '델파이 레거시 → MSA 도메인 분산 설계 (수진자·검사·판정·통계)',
       'Chart.js 기반 검진 통계 대시보드 개발',
-      '공통 컴포넌트/에러핸들러 표준화',
+      '공통 컴포넌트/에러 핸들러 표준화로 팀 유지보수성 개선',
     ],
     createdAt: '2024-05-01',
   },
@@ -69,13 +69,14 @@ export const projects: CareerProject[] = [
     id: 4,
     title: '롯데유통 SCM EPC 이관',
     description:
-      '기존 SCM EPC 시스템을 신규 인프라로 이관. 대용량 Oracle 쿼리 튜닝 및 프로시저 최적화로 안정적 마이그레이션 완수.',
+      '기존 SCM EPC 시스템을 신규 인프라로 이관. 대용량 Oracle 쿼리 튜닝과 공통 외부 API 연동 모듈 표준화로 팀 개발 리소스 약 20% 절감.',
     imageUrl: '',
     tags: ['Java', 'Spring Framework', 'MyBatis', 'Oracle', 'SVN'],
     period: { start: '202212', end: '202305' },
     company: '롯데유통',
     role: 'Backend Developer',
     achievements: [
+      '공통 RestTemplate 래퍼 + 재시도·타임아웃·로깅 표준 모듈 설계 → 팀 개발 리소스 약 20% 절감',
       'Oracle SQL 튜닝 및 프로시저 최적화',
       '기존 시스템 → 신규 인프라 안정적 이관',
       '대용량 데이터 마이그레이션 스크립트 작성',
