@@ -8,6 +8,7 @@ import { useSeoulWeather } from '../hooks/useSeoulWeather';
 
 import { highlights } from '../data/highlights';
 import { achievements } from '../data/achievements';
+import { skills, skillCategories, skillLevelStyles, type SkillItem } from '../data/skills';
 
 /* ------------------------------------------------------------------ */
 /* HOME — 종이 스크랩북 콜라주 hero + 아래 섹션들                       */
@@ -19,7 +20,7 @@ export default function HomePage() {
         <Hero />
         <Highlights />
         <Achievements />
-        <TechMarquee />
+        <SkillInventory />
       </div>
     </PageTransition>
   );
@@ -327,39 +328,75 @@ function AchievementNote({
   );
 }
 
-/* ====================================================== TECH STACK */
-function TechMarquee() {
-  const techs = [
-    'Java 17', 'Spring Boot', 'JPA', 'QueryDSL', 'MyBatis',
-    'Vue 3', 'Quasar', 'React', 'TypeScript',
-    'PostgreSQL', 'MariaDB', 'Oracle',
-    'Docker', 'Kubernetes', 'Jenkins', 'Argo CD', 'MSA',
-  ];
+/* ==================================================== SKILLS */
+function SkillInventory() {
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-5xl mx-auto mb-8 text-center">
-        <div className="font-hand text-camel-deep text-3xl mb-1">stack</div>
+    <section className="py-24 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-5xl mx-auto mb-10 text-center">
+        <div className="font-hand text-camel-deep text-3xl mb-1">skills</div>
         <h2 className="text-2xl sm:text-3xl font-bold text-ink">
           쓰는 <span className="ink-underline">기술들</span>
         </h2>
+        <p className="mt-3 text-[13px] text-ink-mute">
+          수치대신, 프로젝트에 실제로 쓰며 쌓은 경험 기준으로 정리했습니다.
+        </p>
       </div>
-      <MacWindow title="~/devcamel/stack" className="max-w-5xl mx-auto" bodyClassName="px-6 py-6">
-        <div className="flex flex-wrap gap-2.5">
-          {techs.map((t, i) => {
-            const rotate = ((i * 37) % 9) - 4;
-            return (
-              <span
-                key={t}
-                className="inline-flex items-center px-3 py-1.5 text-[13px] font-medium bg-paper text-ink border border-line-strong rounded-md shadow-[0_1px_0_rgba(42,36,24,0.04)]"
-                style={{ transform: `rotate(${rotate * 0.4}deg)` }}
-              >
-                {t}
-              </span>
-            );
-          })}
+      <MacWindow title="~/devcamel/skills.md" className="max-w-5xl mx-auto" bodyClassName="px-6 py-6 space-y-7">
+        {/* 범례 */}
+        <div className="flex flex-wrap items-center gap-2 pb-3 border-b border-line">
+          <span className="text-[11px] font-mono text-ink-mute uppercase tracking-wider mr-1">
+            legend
+          </span>
+          {(Object.keys(skillLevelStyles) as Array<keyof typeof skillLevelStyles>).map((lv) => (
+            <span
+              key={lv}
+              className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full border text-[10px] font-mono ${skillLevelStyles[lv].chip}`}
+            >
+              <span className={`w-1.5 h-1.5 rounded-full ${skillLevelStyles[lv].dot}`} />
+              {skillLevelStyles[lv].label}
+            </span>
+          ))}
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-7">
+          {skillCategories.map((cat) => (
+            <div key={cat.key}>
+              <div className="flex items-center gap-2 mb-3">
+                <span className="font-mono text-camel-deep text-sm">##</span>
+                <h4 className="text-sm font-bold text-ink uppercase tracking-wider">
+                  {cat.label}
+                </h4>
+              </div>
+              <div className="space-y-1">
+                {skills
+                  .filter((s) => s.category === cat.key)
+                  .map((skill) => (
+                    <SkillRow key={skill.name} item={skill} />
+                  ))}
+              </div>
+            </div>
+          ))}
         </div>
       </MacWindow>
     </section>
+  );
+}
+
+function SkillRow({ item }: { item: SkillItem }) {
+  const style = skillLevelStyles[item.level];
+  return (
+    <div className="grid grid-cols-[112px_1fr_auto] items-center gap-3 py-1.5 px-2 -mx-2 rounded hover:bg-paper-3/60 transition-colors">
+      <span
+        className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full border text-[10px] font-mono justify-center ${style.chip}`}
+      >
+        <span className={`w-1.5 h-1.5 rounded-full ${style.dot}`} />
+        {style.label}
+      </span>
+      <span className="text-[13px] text-ink font-medium truncate">{item.name}</span>
+      <span className="text-[11px] font-mono text-ink-mute tabular-nums whitespace-nowrap">
+        {item.experience}
+      </span>
+    </div>
   );
 }
 
