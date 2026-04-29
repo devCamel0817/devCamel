@@ -5,8 +5,6 @@ import { FaArrowRight, FaGithub, FaFileDownload } from 'react-icons/fa';
 import { PageTransition } from '../components/ui';
 import { PaperCard, Terminal, MacWindow } from '../components/paper';
 import { useSeoulWeather } from '../hooks/useSeoulWeather';
-import { useVisitorPresence } from '../hooks/useVisitorPresence';
-import { useVisitorStats } from '../hooks/useVisitorStats';
 
 import { highlights } from '../data/highlights';
 import { achievements } from '../data/achievements';
@@ -31,94 +29,15 @@ export default function HomePage() {
 /* ============================================================ HERO */
 function Hero() {
   const { weather } = useSeoulWeather();
-  const presence = useVisitorPresence();
-  const stats = useVisitorStats();
 
   return (
     <section className="relative overflow-hidden min-h-[100vh] pt-10 pb-20">
-      {/* 날씨에 따른 은은한 배경 오버레이 */}
+      {/* 날씨에 따른 은은한 배경 오버레이 (Hero 한정) */}
       <div
         className="pointer-events-none absolute inset-0 transition-opacity duration-1000"
         style={{ background: weather?.overlay ?? 'transparent' }}
         aria-hidden
       />
-
-      {/* 우상단 데스크의 날씨 / 방문자 / 좌표 메모 (Yan Liu 스타일 오마주) */}
-      <div className="hidden lg:flex absolute top-6 right-8 flex-col items-end gap-1.5 z-10">
-        {/* 1줄: 날씨 + 좌표 */}
-        <motion.div
-          initial={{ opacity: 0, y: -8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="flex items-center gap-2"
-        >
-          {/* <span className="font-mono text-[11px] text-ink-mute tracking-wider whitespace-nowrap">
-            37.4999°N · 126.9203°E · Seoul
-          </span> */}
-          {weather && (
-            <span className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-paper-2/80 backdrop-blur border border-line">
-              <span className="text-base leading-none" aria-hidden>{weather.emoji}</span>
-              <span className={`font-mono text-[12px] tabular-nums ${weather.accent}`}>
-                {Math.round(weather.temperature)}°C
-              </span>
-              <span className="text-[11px] text-ink-soft">· {weather.label}</span>
-            </span>
-          )}
-        </motion.div>
-
-        {/* 2줄: 실시간 온라인 + 누적 방문자 */}
-        {(presence.status !== 'disabled' || stats.status !== 'disabled') && (
-          <motion.div
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.15 }}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-paper-2/80 backdrop-blur border border-line"
-            title="Firebase RTDB · 실시간 접속자 · 일별 unique 방문자"
-          >
-            {presence.status !== 'disabled' && (
-              <span className="flex items-center gap-1.5">
-                <span className="relative flex h-2 w-2">
-                  {presence.status === 'live' && (
-                    <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-60 animate-ping" />
-                  )}
-                  <span
-                    className={`relative inline-flex rounded-full h-2 w-2 ${
-                      presence.status === 'live'
-                        ? 'bg-emerald-500'
-                        : presence.status === 'connecting'
-                        ? 'bg-amber-400'
-                        : 'bg-rose-400'
-                    }`}
-                  />
-                </span>
-                <span className="font-mono text-[12px] tabular-nums text-ink">
-                  {presence.status === 'live' ? presence.count : '—'}
-                </span>
-                <span className="text-[11px] text-ink-soft">online</span>
-              </span>
-            )}
-
-            {presence.status !== 'disabled' && stats.status !== 'disabled' && (
-              <span className="text-ink-mute/60" aria-hidden>·</span>
-            )}
-
-            {stats.status !== 'disabled' && (
-              <span className="flex items-center gap-1.5">
-                <span aria-hidden>👀</span>
-                <span className="font-mono text-[12px] tabular-nums text-ink">
-                  {stats.status === 'live' ? stats.today.toLocaleString() : '—'}
-                </span>
-                <span className="text-[11px] text-ink-soft">today</span>
-                <span className="text-ink-mute/60" aria-hidden>/</span>
-                <span className="font-mono text-[12px] tabular-nums text-ink-soft">
-                  {stats.status === 'live' ? stats.total.toLocaleString() : '—'}
-                </span>
-                <span className="text-[11px] text-ink-soft">total</span>
-              </span>
-            )}
-          </motion.div>
-        )}
-      </div>
 
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 lg:h-[720px]">
         {/* ID Badge (좌측) */}
