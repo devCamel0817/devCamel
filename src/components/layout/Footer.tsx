@@ -16,7 +16,7 @@ export default function Footer() {
           </div>
 
           <div className="flex flex-wrap justify-center gap-2">
-            {['React', 'TypeScript', 'Tailwind', 'Framer Motion', 'EmailJS'].map((tech) => (
+            {['React', 'TypeScript', 'Tailwind', 'Framer Motion', 'EmailJS', 'Firebase'].map((tech) => (
               <span
                 key={tech}
                 className="text-xs px-3 py-1 rounded-full bg-paper text-ink-soft border border-line"
