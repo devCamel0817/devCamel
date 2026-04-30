@@ -30,3 +30,4 @@ dist-ssr
 
 # temp scripts
 *.cjs
+init-backend.ps1

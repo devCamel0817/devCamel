@@ -111,6 +111,9 @@ export default function FourierPage() {
   const coeffsRef = useRef<Epicycle[]>([]);
   const originalRef = useRef<Point[]>([]);
   const trailRef = useRef<Point[]>([]);
+  const trailsRef = useRef<Point[][]>([]);
+  const drawingRef = useRef(true);
+  const drawStartCycleRef = useRef(0);
   const rafRef = useRef(0);
   const accRef = useRef(0);
   const lastRef = useRef(0);
@@ -127,7 +130,9 @@ export default function FourierPage() {
 
   useEffect(() => { pausedRef.current = paused; }, [paused]);
   useEffect(() => { speedRef.current = SPEEDS[speedIdx].factor; }, [speedIdx]);
-  useEffect(() => { circlesRef.current = numCircles; }, [numCircles]);
+  useEffect(() => {
+    circlesRef.current = numCircles;
+  }, [numCircles]);
   useEffect(() => { modeRef.current = mode; }, [mode]);
 
   /* ── Canvas helpers ── */
@@ -234,6 +239,9 @@ export default function FourierPage() {
       const coeffs = dft(sampled);
       coeffsRef.current = coeffs;
       trailRef.current = [];
+      trailsRef.current = [];
+      drawingRef.current = true;
+      drawStartCycleRef.current = 0;
       accRef.current = 0;
       lastRef.current = performance.now();
 
@@ -273,7 +281,6 @@ export default function FourierPage() {
     const delta = now - lastRef.current;
     lastRef.current = now;
     if (!pausedRef.current) accRef.current += delta * speedRef.current;
-    const curCycle = Math.floor(accRef.current / CYCLE_MS);
     const t = ((accRef.current % CYCLE_MS) / CYCLE_MS) * 2 * Math.PI;
 
     ctx.clearRect(0, 0, w, h);
@@ -329,8 +336,8 @@ export default function FourierPage() {
     ctx.fillStyle = '#d4715e';
     ctx.fill();
 
-    /* Trail — 첫 사이클에서만 누적, 이후 사이클부터는 완성본 유지 */
-    if (!pausedRef.current && curCycle === 0) trailRef.current.push({ x, y });
+    /* Trail — 원이 움직이는 대로 계속 그림 */
+    if (!pausedRef.current) trailRef.current.push({ x, y });
     const trail = trailRef.current;
     if (trail.length > 1) {
       ctx.beginPath();
@@ -339,6 +346,7 @@ export default function FourierPage() {
       ctx.strokeStyle = '#c4956a';
       ctx.lineWidth = 2.5;
       ctx.lineJoin = 'round';
+      ctx.lineCap = 'round';
       ctx.stroke();
     }
 

@@ -75,9 +75,8 @@ function Hero() {
           <PaperCard tape="left" className="px-5 py-4">
             <div className="font-hand text-2xl text-camel-deep mb-1">currently</div>
             <p className="text-[13px] text-ink-soft leading-relaxed">
-              CTK CLIP B2B 이커머스 리뉴얼 중.
-              KCP·PayPal·EximBay 결제 연동과 EasyPost·CJ 물류 자동화로
-              미정산·배송 CS를 줄이는 중.
+              Spring 내부 동작 · JVM · DB 인덱싱 깊게 파는 중.
+              결제·배치 도메인 경험을 자산화하면서 다음 팀 찾는 중.
             </p>
           </PaperCard>
         </motion.div>

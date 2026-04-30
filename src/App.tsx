@@ -8,6 +8,7 @@ import SortingPage from './pages/SortingPage';
 import PathfindingPage from './pages/PathfindingPage';
 import FourierPage from './pages/FourierPage';
 import BoidsPage from './pages/BoidsPage';
+import NPlusOnePage from './pages/NPlusOnePage';
 import ContactSection from './pages/ContactSection';
 
 export default function App() {
@@ -23,6 +24,7 @@ export default function App() {
             <Route path="/labs/pathfinding" element={<PathfindingPage />} />
             <Route path="/labs/fourier" element={<FourierPage />} />
             <Route path="/labs/boids" element={<BoidsPage />} />
+            <Route path="/labs/jpa-nplus1" element={<NPlusOnePage />} />
             <Route path="/contact" element={<ContactSection />} />
           </Route>
         </Routes>
